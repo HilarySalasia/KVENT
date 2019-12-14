@@ -26,15 +26,13 @@ public class TownService {
     Town updateTown(Town value) {
 
         Town town = entityManager.find(Town.class, value.getTownId());
-        town.setTownName(value.getTownName());
 
-        townRepository.save(town);
 
-        return town;
+       return town != null ? townRepository.save(value) : null;
     }
 
     Town addTown(Town town){
-        return  townRepository.save(town);
+        return  townRepository.saveAndFlush(town);
     }
 
     String deleteTown(Long id) {

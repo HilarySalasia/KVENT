@@ -21,13 +21,13 @@ public class WardService {
     }
 
     Ward updateWard(Ward ward) {
-        Ward wardRow = getWard(ward.getWardId());
-        wardRow.setWardName(ward.getWardName());
-        return wardRow;
+        Ward wardRow = wardRepository.getOne(ward.getWardId());
+
+        return wardRow != null ? wardRepository.saveAndFlush(ward) : null;
     }
 
     Ward addWard(Ward ward) {
-        return wardRepository.save(ward);
+        return wardRepository.saveAndFlush(ward);
     }
 
     String deleteWard(Long id) {

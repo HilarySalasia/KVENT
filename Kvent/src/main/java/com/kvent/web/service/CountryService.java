@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-@Service
+
 public class CountryService {
     @PersistenceContext
     private final CountryRepository countryRepository;
@@ -30,9 +30,11 @@ public class CountryService {
     }
 
     Country saveCountry(Country country){
-        Country country1 = countryRepository.save(country);
-        return country;
+        return countryRepository.saveAndFlush(country);
     }
 
-
+    Country updateCountry(Country country) {
+        Country countryRow = countryRepository.getOne(country.getCountryId());
+        return countryRow != null ? countryRepository.saveAndFlush(country) : null;
+    }
 }

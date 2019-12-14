@@ -1,6 +1,7 @@
 package com.kvent.web.service;
 
 import com.kvent.web.entity.MixPicUpload;
+import com.kvent.web.entity.MixesUpload;
 import com.kvent.web.repository.MixPicUploadRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -29,13 +30,8 @@ public class MixPicUploadService {
     }
 
     MixPicUpload updateMix(MixPicUpload mixPicUpload) {
-        MixPicUpload mix = mixPicUploadRepository.getOne(mixPicUpload.getMixPicId());
-        mix.setMixPicArtist(mixPicUpload.getMixPicArtist());
-        mix.setMixPicLink(mixPicUpload.getMixPicLink());
-        mix.setMixPicPermit(mixPicUpload.getMixPicPermit());
-        mix.setMixPicName(mixPicUpload.getMixPicName());
-
-        return mixPicUploadRepository.save(mix);
+        MixPicUpload mixesUploadDb = mixPicUploadRepository.getOne(mixPicUpload.getMixPicId());
+        return mixesUploadDb != null ? mixPicUploadRepository.saveAndFlush(mixPicUpload) : null;
     }
 
     String deleteMix(Long mixId) {
@@ -50,5 +46,9 @@ public class MixPicUploadService {
 
     List<MixPicUpload> MixesPermPics(String param) {
         return mixPicUploadRepository.getPermittedMixPics(param);
+    }
+
+    MixPicUpload mixPicUpload(MixPicUpload mixPicUpload) {
+        return mixPicUploadRepository.saveAndFlush(mixPicUpload);
     }
 }
