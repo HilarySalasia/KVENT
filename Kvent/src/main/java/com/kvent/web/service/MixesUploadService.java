@@ -2,41 +2,46 @@ package com.kvent.web.service;
 
 import com.kvent.web.entity.MixesUpload;
 import com.kvent.web.repository.MixesUploadRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class MixesUploadService {
+    @Autowired
     private final MixesUploadRepository mixesUploadRepository;
 
     public MixesUploadService(MixesUploadRepository mixesUploadRepository) {
         this.mixesUploadRepository = mixesUploadRepository;
     }
-    MixesUpload uploadMix(MixesUpload mixesUpload) {
+
+    public MixesUpload uploadMix(MixesUpload mixesUpload) {
         return mixesUploadRepository.saveAndFlush(mixesUpload);
     }
 
-    List<MixesUpload> uploadMixes(List<MixesUpload> mixesUploads){
+    public List<MixesUpload> uploadMixes(List<MixesUpload> mixesUploads){
         return mixesUploadRepository.saveAll(mixesUploads);
     }
 
-    List<MixesUpload> getAllMixes(){
+    public List<MixesUpload> getAllMixes(){
         return mixesUploadRepository.findAll();
     }
 
-    MixesUpload getMixUpload(Long mixId) {
+    public MixesUpload getMixUpload(Long mixId) {
         return mixesUploadRepository.getOne(mixId);
     }
 
-    MixesUpload updateMixUpload(MixesUpload mix) {
+    public MixesUpload updateMixUpload(MixesUpload mix) {
         MixesUpload mixesUpload = mixesUploadRepository.getOne(mix.getMixId());
         return mixesUpload != null ? mixesUploadRepository.saveAndFlush(mix) : null;
     }
 
-    void deleteMixUpload(Long mixId) {
-        mixesUploadRepository.deleteById(mixId);
+    public String deleteMixUpload(Long mixId) {
+        mixesUploadRepository.delete(mixId);
+        return "MixDeleted";
     }
 
-    List<MixesUpload> getMixesByStatus(String mixStatus) {
+    public List<MixesUpload> getMixesByStatus(String mixStatus) {
         return mixesUploadRepository.getMixesByStatus(mixStatus);
     }
 }

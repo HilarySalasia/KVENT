@@ -2,10 +2,12 @@ package com.kvent.web.service;
 
 import com.kvent.web.entity.Ward;
 import com.kvent.web.repository.WardRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class WardService {
+    @Autowired
     private final WardRepository wardRepository;
 
     public WardService(WardRepository wardRepository) {
@@ -33,7 +35,7 @@ public class WardService {
     String deleteWard(Long id) {
         Ward fetchWard = getWard(id);
         if(fetchWard != null) {
-            wardRepository.deleteById(id);
+            wardRepository.delete(id);
             return "Successfully Deleted Ward!!";
         } else {
             return "Ward to Delete wasn't Found!";

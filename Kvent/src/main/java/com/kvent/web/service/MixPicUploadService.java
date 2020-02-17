@@ -1,16 +1,16 @@
 package com.kvent.web.service;
 
 import com.kvent.web.entity.MixPicUpload;
-import com.kvent.web.entity.MixesUpload;
 import com.kvent.web.repository.MixPicUploadRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-
 import java.util.List;
 
 public class MixPicUploadService {
+    @Autowired
     private final MixPicUploadRepository mixPicUploadRepository;
     private final Pageable pageable;
 
@@ -37,7 +37,7 @@ public class MixPicUploadService {
     String deleteMix(Long mixId) {
         MixPicUpload mixPicUpload = mixPicUploadRepository.getOne(mixId);
         if (mixPicUpload != null) {
-            mixPicUploadRepository.deleteById(mixId);
+            mixPicUploadRepository.delete(mixId);
             return "Mix Removed";
         } else {
             return "Mix Not Found";

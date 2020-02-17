@@ -2,11 +2,13 @@ package com.kvent.web.service;
 
 import com.kvent.web.entity.Town;
 import com.kvent.web.repository.TownRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
 public class TownService {
+    @Autowired
     private final TownRepository townRepository;
     private final EntityManager entityManager;
 
@@ -36,7 +38,7 @@ public class TownService {
     }
 
     String deleteTown(Long id) {
-        townRepository.deleteById(id);
+        townRepository.delete(id);
         return "Delete Successful";
     }
 }

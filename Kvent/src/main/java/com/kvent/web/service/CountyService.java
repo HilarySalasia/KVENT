@@ -9,8 +9,9 @@ import java.util.List;
 
 @Service
 public class CountyService {
-    private final CountyRepository countyRepository;
     @Autowired
+    private final CountyRepository countyRepository;
+
     public CountyService(CountyRepository countyRepository) {
         this.countyRepository = countyRepository;
     }

@@ -5,7 +5,7 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath "org.springframework.boot:spring-boot-gradle-plugin:2.2.1.RELEASE"
+		classpath "org.springframework.boot:spring-boot-gradle-plugin:2.2.2.RELEASE"
 	}
 }
 
@@ -39,10 +39,12 @@ dependencies {
 	// JPA Data (We are going to use Repositories, Entities, Hibernate, etc...)
 	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
 	compile group: 'javax.persistence', name: 'persistence-api', version: '1.0'
-	//compileOnly 'org.projectlombok:lombok'
-	//developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	//annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
-	//annotationProcessor 'org.projectlombok:lombok'
+//	compile group: 'org.springframework', name: 'spring-core', version: '3.1.4.RELEASE'
+	compile group: 'org.springframework.data', name: 'spring-data-commons-core', version: '1.4.1.RELEASE'
+	compile 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
@@ -52,3 +54,44 @@ test {
 	useJUnitPlatform()
 }
 
+jar {
+    baseName = 'vnt-enterprises'
+    version =  '0.1.0'
+}
+/////////////////////////
+//buildscript {
+//	repositories {
+//		maven { url "https://repo.spring.io/libs-release" }
+//	}
+//	dependencies {
+//		classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE")
+//	}
+//}
+//
+//apply plugin: 'base'
+//apply plugin: 'java'
+//apply plugin: 'eclipse'
+//apply plugin: 'idea'
+//apply plugin: 'spring-boot'
+//version =  '0.1.0'
+//archivesBaseName = 'gs-statemachine'
+//
+//group = 'com.kvent'
+//version = '0.0.1-SNAPSHOT'
+//sourceCompatibility = '1.8'
+//repositories {
+//	mavenCentral()
+//	maven { url "https://repo.spring.io/libs-release" }
+//	maven { url "https://repo.spring.io/libs-milestone" }
+//	maven { url "https://repo.spring.io/libs-snapshot" }
+//}
+//
+//dependencies {
+//	compile("org.springframework.statemachine:spring-statemachine-core:1.0.0.BUILD-SNAPSHOT")
+//	compile("org.springframework.boot:spring-boot-starter:1.2.5.RELEASE")
+//	testCompile("org.springframework.statemachine:spring-statemachine-test:1.0.0.BUILD-SNAPSHOT")
+//}
+//
+////task wrapper(type: Wrapper) {
+////	gradleVersion = '1.11'
+////}
