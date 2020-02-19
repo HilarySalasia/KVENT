@@ -9,8 +9,9 @@ import java.util.List;
 
 @Service
 public class CountyService {
-    private final CountyRepository countyRepository;
     @Autowired
+    private final CountyRepository countyRepository;
+
     public CountyService(CountyRepository countyRepository) {
         this.countyRepository = countyRepository;
     }
@@ -26,12 +27,16 @@ public class CountyService {
     }
 
     County saveCounty(County county){
-        County savedCounty = countyRepository.save(county);
-        return savedCounty;
+        return countyRepository.saveAndFlush(county);
     }
 
     List<County> saveCounties(List<County> counties){
         List<County> savedCounties = countyRepository.saveAll(counties);
         return savedCounties;
+    }
+
+    County updateCounty(County county){
+        County countyRow =countyRepository.getOne(county.getCountyId());
+        return countyRow != null ? countyRepository.saveAndFlush(county) : null;
     }
 }

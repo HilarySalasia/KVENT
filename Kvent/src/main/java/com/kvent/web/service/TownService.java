@@ -2,11 +2,13 @@ package com.kvent.web.service;
 
 import com.kvent.web.entity.Town;
 import com.kvent.web.repository.TownRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
 public class TownService {
+    @Autowired
     private final TownRepository townRepository;
     private final EntityManager entityManager;
 
@@ -26,19 +28,17 @@ public class TownService {
     Town updateTown(Town value) {
 
         Town town = entityManager.find(Town.class, value.getTownId());
-        town.setTownName(value.getTownName());
 
-        townRepository.save(town);
 
-        return town;
+       return town != null ? townRepository.save(value) : null;
     }
 
     Town addTown(Town town){
-        return  townRepository.save(town);
+        return  townRepository.saveAndFlush(town);
     }
 
     String deleteTown(Long id) {
-        townRepository.deleteById(id);
+        townRepository.delete(id);
         return "Delete Successful";
     }
 }

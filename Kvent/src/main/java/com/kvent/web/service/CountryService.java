@@ -2,14 +2,15 @@ package com.kvent.web.service;
 
 import com.kvent.web.entity.Country;
 import com.kvent.web.repository.CountryRepository;
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-@Service
+
 public class CountryService {
     @PersistenceContext
+    @Autowired
     private final CountryRepository countryRepository;
     private final EntityManager entityManager;
 
@@ -30,9 +31,11 @@ public class CountryService {
     }
 
     Country saveCountry(Country country){
-        Country country1 = countryRepository.save(country);
-        return country;
+        return countryRepository.saveAndFlush(country);
     }
 
-
+    Country updateCountry(Country country) {
+        Country countryRow = countryRepository.getOne(country.getCountryId());
+        return countryRow != null ? countryRepository.saveAndFlush(country) : null;
+    }
 }
