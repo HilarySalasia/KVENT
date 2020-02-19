@@ -9,7 +9,7 @@ import java.util.List;
 
 @Service
 public class CountyService {
-
+    @Autowired
     private CountyRepository countyRepository;
 
 

@@ -11,11 +11,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class KventController {
- @Autowired
- private final MixesUploadService mixesUploadService;
 
- public KventController(MixesUploadService mixesUploadService) {
-  this.mixesUploadService = mixesUploadService;
+ private MixesUploadService mixesUploadService;
+
+ @RequestMapping("/")
+ public String index() {
+  return "Greetings from Spring Boot!";
  }
 
  @GetMapping("/getAllMixes")

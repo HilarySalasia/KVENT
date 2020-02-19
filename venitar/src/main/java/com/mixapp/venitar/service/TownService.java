@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import java.util.List;
 @Service
 public class TownService {
-
+    @Autowired
     private TownRepository townRepository;
     private EntityManager entityManager;
 

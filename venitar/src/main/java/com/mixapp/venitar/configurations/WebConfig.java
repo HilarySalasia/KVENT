@@ -1,6 +1,7 @@
 package com.mixapp.venitar.configurations;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
@@ -18,7 +19,8 @@ public class WebConfig implements WebMvcConfigurer {
         return resolver;
     }
     @Override
-    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+    public void configureDefaultServletHandling(
+            DefaultServletHandlerConfigurer configurer){
         configurer.enable();
     }
 
@@ -29,10 +31,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .resourceChain(true).addResolver(new PathResourceResolver());
 
         registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/META-INF/resources/");
+                .addResourceLocations("classpath:/resources/META-INF/resources/");
 
         registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+                .addResourceLocations("classpath:/resources/META-INF/resources/webjars/");
     }
 
 }

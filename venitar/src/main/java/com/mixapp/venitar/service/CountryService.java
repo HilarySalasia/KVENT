@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 @Service
 public class CountryService {
+    @Autowired
     private CountryRepository countryRepository;
     private  EntityManager entityManager;
 
