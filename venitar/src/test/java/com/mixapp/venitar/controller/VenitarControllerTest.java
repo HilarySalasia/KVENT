@@ -1,6 +1,7 @@
 package com.mixapp.venitar.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mixapp.venitar.configurations.DatabaseConfiguration;
 import com.mixapp.venitar.entity.MixesUpload;
 import com.mixapp.venitar.service.MixesUploadService;
 import com.sun.deploy.uitoolkit.impl.fx.ui.MixedCodeInSwing;
@@ -10,10 +11,13 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -30,8 +34,9 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@WebAppConfiguration
+@WebMvcTest(KventController.class)
 public class VenitarControllerTest {
 
     private MockMvc mockMvc;
@@ -45,7 +50,7 @@ public class VenitarControllerTest {
         @Before
         public void setup() throws Exception {
             MockitoAnnotations.initMocks(this);
-            this.mockMvc = MockMvcBuilders.webAppContextSetup(this.webApplicationContext).dispatchOptions(true).build();
+            this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
         }
         public static String asJsonString(MixesUpload mixesUpload){
             try {
@@ -77,7 +82,7 @@ public class VenitarControllerTest {
 
             given(mixesUploadService.getAllMixes()).willReturn(mixesUploadList);
 
-            this.mockMvc.perform(get("/getAllMixes/")
+            this.mockMvc.perform(get("/getAllMixes")
                     .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk())
                     .andExpect(content().string(expected))
