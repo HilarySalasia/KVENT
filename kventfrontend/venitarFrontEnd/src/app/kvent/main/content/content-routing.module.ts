@@ -7,15 +7,14 @@ import {PicturesContentComponent} from './pictures-content/pictures-content.comp
 
 
 const routes: Routes = [
-  // { path: 'events', component: EventsContentComponent },
-  // { path: 'pictures', component: PicturesContentComponent },
-  // {path: 'videos', component: VideosContentComponent},
-  // { path: 'home', component: HomeContentComponent }
-  {path: '', component: HomeContentComponent, children: [
-      { path: 'events', component: EventsContentComponent },
-      { path: 'pictures', component: PicturesContentComponent },
-      {path: 'videos', component: VideosContentComponent},
-      { path: 'home', component:  }] }
+  { path: 'events', component: EventsContentComponent },
+  { path: 'pictures', component: PicturesContentComponent },
+  {path: 'videos', component: VideosContentComponent},
+  { path: 'home', component: HomeContentComponent }
+  // {path: '', component: HomeContentComponent, children: [
+  //     { path: 'events', component: EventsContentComponent },
+  //     { path: 'pictures', component: PicturesContentComponent },
+  //     {path: 'videos', component: VideosContentComponent}] }
 ];
 
 @NgModule({

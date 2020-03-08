@@ -1,7 +1,12 @@
 package com.mixapp.venitar.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 @Entity
 @Table(name="vent_user")
@@ -32,12 +37,15 @@ public class Users {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "dob")
-    private LocalDate dateOfBirth;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "vent_cred_id", nullable = false)
-    private Credentials credentials;
+    @Column(name = "dob")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern = "YYYY-MM-dd")
+    private Date dateOfBirth;
+//    @OneToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "vent_cred_id", nullable = false)
+//    private Credentials credentials;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "vent_country_id", nullable = false)
@@ -119,21 +127,21 @@ public class Users {
         this.email = email;
     }
 
-    public LocalDate getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Credentials getCredentials() {
-        return credentials;
-    }
+//    public Credentials getCredentials() {
+//        return credentials;
+//    }
 
-    public void setCredentials(Credentials credentials) {
-        this.credentials = credentials;
-    }
+//    public void setCredentials(Credentials credentials) {
+//        this.credentials = credentials;
+//    }
 
     public Country getCountry() {
         return country;

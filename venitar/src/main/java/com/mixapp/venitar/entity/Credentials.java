@@ -1,5 +1,8 @@
 package com.mixapp.venitar.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -39,6 +42,8 @@ public class Credentials {
     }
 
     @Column(name="created_time")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern = "YYYY-MM-dd")
     private LocalDate createdDate;
 
 }

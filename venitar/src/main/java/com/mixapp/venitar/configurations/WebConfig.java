@@ -31,10 +31,10 @@ public class WebConfig implements WebMvcConfigurer {
                 .resourceChain(true).addResolver(new PathResourceResolver());
 
         registry.addResourceHandler("swagger-ui.html")
-                .addResourceLocations("classpath:/resources/META-INF/resources/");
+                .addResourceLocations("classpath:/META-INF/resources/");
 
         registry.addResourceHandler("/webjars/**")
-                .addResourceLocations("classpath:/resources/META-INF/resources/webjars/");
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
 }

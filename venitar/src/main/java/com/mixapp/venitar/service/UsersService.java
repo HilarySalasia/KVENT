@@ -22,18 +22,41 @@ public class UsersService {
     private static final File TEMP_DIRECTORY =
             new File(System.getProperty("java.io.tmpdir"));
 
-    public Users addUser(Users user) {
+     public Users addUser(Users user) {
         List<Users> checkUser = usersRepository.findUsersByEmail(user.getEmail());
 
         if (checkUser.size() == 0) {
+            Users saved = usersRepository.save(user);
         File newDirectory = new File(TEMP_DIRECTORY,
-                user.getUserCode().toString());
+                saved.getUserCode().toString());
         assertFalse(newDirectory.exists());
         assertTrue(newDirectory.mkdir());
-
-        } else{
-            user = null;
+            return user;
+        } else {
+            return null;
         }
-        return usersRepository.save(user);
+
+    }
+
+    List<Users> findAllUsers() {
+         return usersRepository.findAll();
+    }
+
+    Users findUsers(Long userId) {
+         return usersRepository.getOne(userId);
+    }
+
+    List<Users> findUsersByNames(String name) {
+         return usersRepository.findUsersByNames(name);
+    }
+
+    Users editUsers(Users users) {
+         Users conf = usersRepository.getOne(users.getUserCode());
+         if (conf != null) {
+             return usersRepository.save(users);
+         } else {
+             return conf;
+         }
+
     }
 }

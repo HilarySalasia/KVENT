@@ -1,12 +1,23 @@
-<div *ngFor="let mix of qMixes">
-  <div>
-    {{mix.mixLink}}
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 align-content-center" >
+  <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 d-inline-block" *ngFor="let mix of qMixes">
+    <div  class="m-0" >
+
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="mixContent">
+        {{mix.mixLink}}
+
+        {{mix.mixTitle}}
+
+        {{mix.mixCompany}}
+
+      </div>
+
+      educations
+    </div>
   </div>
-  <div>
-    {{mix.mixTitle}}
-  </div>
-  <div>
-    {{mix.mixCompany}}
-  </div>
-  educations
 </div>
+<!--<div>-->
+<!--  <svg id="svgLnTop" height="1" width="1500">-->
+<!--    <line id="top" x1="0" y1="0" x2="1500" y2="0" />-->
+<!--    svg-->
+<!--  </svg>-->
+<!--</div>-->

@@ -2,6 +2,8 @@ package com.mixapp.venitar.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mixapp.venitar.configurations.DatabaseConfiguration;
+import com.mixapp.venitar.entity.Company;
+import com.mixapp.venitar.entity.Country;
 import com.mixapp.venitar.entity.MixesUpload;
 import com.mixapp.venitar.service.MixesUploadService;
 import com.sun.deploy.uitoolkit.impl.fx.ui.MixedCodeInSwing;
@@ -71,9 +73,17 @@ public class VenitarControllerTest {
                     "  \"mixLink\" : \"50Cent\",\n" +
                     "  \"mixTitle\" : \"Date.valueOf\",\n" +
                     "} ]";
+            Country country = new Country();
+            country.setCountryId(1L);
+            country.setName("Kenya");
+            Company company = new Company();
+            company.setCompanyId(1L);
+            company.setCompanyAddress("test Address");
+            company.setCompanyName("Test Company");
+            company.setCountry(country);
             MixesUpload mixesUpload = new MixesUpload();
             mixesUpload.setMixId(4l);
-            mixesUpload.setMixCompany("Kvent Test");
+            mixesUpload.setCompany(company);
             mixesUpload.setMixDjName("Jabawhosky");
             mixesUpload.setMixStatus("Allowed");
             mixesUpload.setMixLink("50Cent");

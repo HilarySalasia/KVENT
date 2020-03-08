@@ -7,7 +7,7 @@ import {ContentContentComponent} from './kvent/main/content/content-content.comp
 const routes: Routes = [
   {path: '', redirectTo: '/content', pathMatch: 'full'},
   {path: 'content', component: ContentContentComponent,
-    loadChildren: './kvent/main/content/content.module#ContentModule', pathMatch: 'full'}
+    loadChildren: () => import('./kvent/main/content/content.module').then(m => m.ContentModule), pathMatch: 'full'}
   ];
 
 @NgModule({

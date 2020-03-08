@@ -10,9 +10,6 @@ public class MixesUpload {
     @Column(name="mix_id")
     private Long mixId;
 
-    @Column(name="mix_company")
-    private String mixCompany;
-
     @Column(name="mix_dj_name")
     private String mixDjName;
 
@@ -25,7 +22,9 @@ public class MixesUpload {
     @Column(name="mix_title")
     private String mixTitle;
 
-
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "mix_companyID", nullable = false)
+    private Company company;
     //Getter and Setters
     public Long getMixId() {
         return mixId;
@@ -33,14 +32,6 @@ public class MixesUpload {
 
     public void setMixId(Long mixId) {
         this.mixId = mixId;
-    }
-
-    public String getMixCompany() {
-        return mixCompany;
-    }
-
-    public void setMixCompany(String mixCompany) {
-        this.mixCompany = mixCompany;
     }
 
     public String getMixDjName() {
@@ -75,4 +66,11 @@ public class MixesUpload {
         this.mixTitle = mixTitle;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
 }
