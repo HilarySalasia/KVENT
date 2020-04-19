@@ -1,7 +1,11 @@
 package com.mixapp.venitar.controller;
 
+import com.mixapp.venitar.entity.Login;
 import com.mixapp.venitar.entity.MixesUpload;
 import com.mixapp.venitar.entity.Users;
+import com.mixapp.venitar.exception.InvalidLoginException;
+import com.mixapp.venitar.exception.InvalidUsersException;
+import com.mixapp.venitar.service.LoginService;
 import com.mixapp.venitar.service.MixesUploadService;
 import com.mixapp.venitar.service.UsersService;
 import org.apache.catalina.User;
@@ -21,14 +25,25 @@ public class KventController {
  private MixesUploadService mixesUploadService;
  @Autowired
  private UsersService usersService;
+ @Autowired
+ private LoginService loginService;
 
- @RequestMapping("/")
+ @GetMapping("/")
  public String index() {
   return "Greetings from Spring Boot!";
  }
+
  @PostMapping("/addUser")
- Users addUser(@RequestBody Users users) { return usersService.addUser(users);
+ Users addUser(@RequestBody Users users) throws InvalidUsersException { return usersService.addUser(users);
  }
+ @PostMapping("/login")
+ Login loginUser(@RequestParam(name="username") String username,
+                 @RequestParam(name = "password") String password) throws InvalidLoginException{
+  return loginService.loginUsers(username, password);
+ }
+
+ @GetMapping("/getAllUser")
+ List<Users> getAllUser() throws InvalidUsersException { return usersService.findAllUsers();}
 
  @GetMapping("/getAllMixes")
  List<MixesUpload> getAllMixes() {
@@ -51,9 +66,8 @@ public class KventController {
  }
 
  @DeleteMapping("/delMix")
- String deleteMix(@RequestParam(name = "mixID") Long mixId){
-   MixesUpload mixesUpload = mixesUploadService.getMixUpload(mixId);
-   return mixesUpload != null ? mixesUploadService.deleteMixUpload(mixId) : "No Mix Found";
+ void deleteMix(@RequestParam(name = "mixID") Long mixId){
+    mixesUploadService.deleteMixUpload(mixId);
   }
 
 }

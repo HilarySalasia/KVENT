@@ -1,9 +1,12 @@
 package com.mixapp.venitar.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.time.LocalDate;
 
 @Entity
@@ -15,6 +18,7 @@ public class Credentials {
     private Long credId;
 
     @Column(name="password")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String passCode;
 
     public Long getCredId() {
@@ -33,17 +37,18 @@ public class Credentials {
         this.passCode = passCode;
     }
 
-    public LocalDate getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDate createdDate) {
+    public void setCreatedDate(Date createdDate) {
         this.createdDate = createdDate;
     }
 
     @Column(name="created_time")
+    @Temporal(TemporalType.DATE)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(pattern = "YYYY-MM-dd")
-    private LocalDate createdDate;
+    private Date createdDate;
 
 }

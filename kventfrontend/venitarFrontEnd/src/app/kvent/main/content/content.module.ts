@@ -9,6 +9,9 @@ import {CommonModule} from '@angular/common';
 import { UploadMixComponent } from './upload-mix/upload-mix.component';
 import { UploadPicturesComponent } from './upload-pictures/upload-pictures.component';
 import { UploadVideosComponent } from './upload-videos/upload-videos.component';
+import {ContentRoutingModule} from './content-routing.module';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -27,7 +30,10 @@ import { UploadVideosComponent } from './upload-videos/upload-videos.component';
   // ],
   providers: [],
   imports: [
-    CommonModule
+    CommonModule,
+    ContentRoutingModule,
+    FontAwesomeModule,
+    FormsModule
   ],
   // bootstrap: []
 })

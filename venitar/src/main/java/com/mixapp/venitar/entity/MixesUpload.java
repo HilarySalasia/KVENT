@@ -25,6 +25,10 @@ public class MixesUpload {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "mix_companyID", nullable = false)
     private Company company;
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "mix_cover_id", nullable = false)
+    private Picture picture;
     //Getter and Setters
     public Long getMixId() {
         return mixId;
@@ -72,5 +76,13 @@ public class MixesUpload {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
     }
 }

@@ -1,16 +1,19 @@
 package com.mixapp.venitar.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Entity
 @Table(name="vent_user")
-public class Users {
+public class Users implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name= "code")
@@ -43,24 +46,29 @@ public class Users {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(pattern = "YYYY-MM-dd")
     private Date dateOfBirth;
-//    @OneToOne(fetch = FetchType.LAZY, optional = false)
-//    @JoinColumn(name = "vent_cred_id", nullable = false)
-//    private Credentials credentials;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "vent_cred_id", nullable = false)
+    private Credentials credentials;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "vent_country_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Country country;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "vent_county_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private County county;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "vent_town_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Town town;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "vent_ward_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Ward ward;
 
     public Long getUserCode() {
@@ -135,13 +143,13 @@ public class Users {
         this.dateOfBirth = dateOfBirth;
     }
 
-//    public Credentials getCredentials() {
-//        return credentials;
-//    }
+    public Credentials getCredentials() {
+        return credentials;
+    }
 
-//    public void setCredentials(Credentials credentials) {
-//        this.credentials = credentials;
-//    }
+    public void setCredentials(Credentials credentials) {
+        this.credentials = credentials;
+    }
 
     public Country getCountry() {
         return country;

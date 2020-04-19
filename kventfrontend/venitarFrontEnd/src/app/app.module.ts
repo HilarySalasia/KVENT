@@ -9,6 +9,8 @@ import {NavigationComponent} from './kvent/main/navigation/navigation.component'
 import { ExpansionComponent } from './kvent/main/expansion/expansion.component';
 import {ContentContentComponent} from './kvent/main/content/content-content.component';
 import {HttpClientModule} from '@angular/common/http';
+import {ContentModule} from './kvent/main/content/content.module';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import {HttpClientModule} from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ContentModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

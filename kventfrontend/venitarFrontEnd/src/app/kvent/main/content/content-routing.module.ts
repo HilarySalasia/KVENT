@@ -4,17 +4,18 @@ import {VideosContentComponent} from './videos-content/videos-content.component'
 import {EventsContentComponent} from './events-content/events-content.component';
 import {HomeContentComponent} from './home-content/home-content.component';
 import {PicturesContentComponent} from './pictures-content/pictures-content.component';
+import {UploadMixComponent} from './upload-mix/upload-mix.component';
+import {UploadPicturesComponent} from './upload-pictures/upload-pictures.component';
 
 
 const routes: Routes = [
+  { path: 'upload/mix', component: UploadMixComponent },
+  { path: 'upload/picture', component: UploadPicturesComponent },
   { path: 'events', component: EventsContentComponent },
   { path: 'pictures', component: PicturesContentComponent },
-  {path: 'videos', component: VideosContentComponent},
+  { path: 'videos', component: VideosContentComponent},
   { path: 'home', component: HomeContentComponent }
-  // {path: '', component: HomeContentComponent, children: [
-  //     { path: 'events', component: EventsContentComponent },
-  //     { path: 'pictures', component: PicturesContentComponent },
-  //     {path: 'videos', component: VideosContentComponent}] }
+
 ];
 
 @NgModule({

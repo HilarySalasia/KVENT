@@ -1,6 +1,7 @@
 package com.mixapp.venitar.service;
 
 import com.mixapp.venitar.entity.Users;
+import com.mixapp.venitar.exception.InvalidUsersException;
 import com.mixapp.venitar.models.VentError;
 import com.mixapp.venitar.repository.UsersRepository;
 import lombok.val;
@@ -9,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.List;
 
 import static org.junit.Assert.assertFalse;
@@ -18,27 +21,43 @@ import static org.junit.Assert.assertTrue;
 public class UsersService {
     @Autowired
     private UsersRepository usersRepository;
+    private InvalidUsersException invalidUsersException;
 
     private static final File TEMP_DIRECTORY =
             new File(System.getProperty("java.io.tmpdir"));
 
-     public Users addUser(Users user) {
-        List<Users> checkUser = usersRepository.findUsersByEmail(user.getEmail());
+     public Users addUser(Users user) throws InvalidUsersException {
+        Users checkUser = usersRepository.findUsersByEmail(user.getEmail());
 
-        if (checkUser.size() == 0) {
-            Users saved = usersRepository.save(user);
-        File newDirectory = new File(TEMP_DIRECTORY,
-                saved.getUserCode().toString());
-        assertFalse(newDirectory.exists());
-        assertTrue(newDirectory.mkdir());
-            return user;
+        if (checkUser == null) {
+             usersRepository.save(user);
+            Users saved = usersRepository.findUsersByEmail(user.getEmail());
+//            File tmpDir = new File("tmp/venitarL");
+//            if (!tmpDir.isDirectory()) {
+//                try {
+//                     Files.createDirectory(tmpDir.toPath());
+//
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            File newDirectory = new File(TEMP_DIRECTORY,
+//                    saved.getUserCode().toString());
+//               if (!newDirectory.exists()) {
+//                   newDirectory.mkdir();
+//                   System.out.println("Directory Successfully Created");
+//                   return user;
+//               } else {
+//                   throw new InvalidUsersException(invalidUsersException.getDupDirectory());
+//               }
+            return saved;
         } else {
-            return null;
+            throw new InvalidUsersException(invalidUsersException.getDupUser());
         }
 
     }
 
-    List<Users> findAllUsers() {
+    public List<Users> findAllUsers() {
          return usersRepository.findAll();
     }
 

@@ -1,9 +1,10 @@
 package com.mixapp.venitar.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name="vent_town")
+@Table(name="vent_ward")
 public class Ward {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
@@ -26,6 +27,6 @@ public class Ward {
         this.wardName = wardName;
     }
 
-    @Column(name="ward", length=15, nullable=false, unique=false)
+    @Column(name="ward", length=35, nullable=false, unique=false)
     private String wardName;
 }

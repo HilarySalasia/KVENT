@@ -1,7 +1,11 @@
 <div>
+  <div *ngIf="picHardLink"  width="25%" height="25%">
+    <img [src]="picHardLink"  width="25%" height="25%"/>
+  </div>
   <div>
-    <img/>
-    <h3>Upload Pictures</h3>
-    <input type="file" />
+    <input type="file" (change)="onChangeFile($event)" >
+  </div>
+  <div>
+    <button type="submit" class="btn-lg bg-success" (click)="onUpload()"><h2>Upload</h2></button>
   </div>
 </div>

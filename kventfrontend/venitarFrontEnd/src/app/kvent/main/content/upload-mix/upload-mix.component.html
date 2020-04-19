@@ -1,27 +1,36 @@
-<div>
+<div xmlns="http://www.w3.org/1999/html">
   <div>
-    <form>
+    <form class="form-group">
+<!--      <div>-->
+<!--        <label for="mix_name">Mix Name<span style="color: red;">**</span></label>-->
+<!--        <input id="mix_name" type="text" class="required form-control" [required]="true" [(ngModel)]="mix."/>-->
+
+<!--      </div>-->
       <div>
-        <label>Mix Name</label>
-        <input/>
+        <label for="mix_title">Mix Title<span style="color: red;">**</span></label>
+        <input id="mix_title" name="mix_title" class="form-control" [(ngModel)]="mix.mixTitle" [required]="true" >
+
       </div>
       <div>
-        <label>Mix Title</label>
-        <input/>
-      </div>
-      <div>
-        <label>Company</label>
-        <select>
-            <option></option>
+        <label for="mix_company">Company<span style="color: red;">**</span></label>
+        <select id="mix_company" name="mix_company" class="form-control" [(ngModel)]="mix.mixCompany.companyId"
+                [required]="true" >
+          <option [disabled]="true">Select A Company</option>
+          <option  *ngFor="let company of companies" [value] = company.companyId >{{company.companyName}}</option>
         </select>
       </div>
 
+      <br/>
+      <hr/>
+      <div>
+        <h3>Upload Mix</h3>
+        <input type="file" class="form-control-file" (change)="onChangeFile($event)"/>
+
+      </div>
+      <div>
+        <button type="submit" class="btn-lg bg-success" (click)="onUpload()"><h2>Upload</h2></button>
+      </div>
     </form>
-  </div>
-<hr>
-  <div>
-    <h3>Upload Mix</h3>
-    <input type="file" />
   </div>
 </div>
 <!--+-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;+-&#45;&#45;&#45;&#45;+-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+-->

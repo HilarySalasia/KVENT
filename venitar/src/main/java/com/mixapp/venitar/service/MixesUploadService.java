@@ -34,9 +34,8 @@ public class MixesUploadService {
         return mixesUpload != null ? mixesUploadRepository.saveAndFlush(mix) : null;
     }
 
-    public String deleteMixUpload(Long mixId) {
+    public void deleteMixUpload(Long mixId) {
         mixesUploadRepository.deleteById(mixId);
-        return "MixDeleted";
     }
 
     public List<MixesUpload> getMixesByStatus(String mixStatus) {

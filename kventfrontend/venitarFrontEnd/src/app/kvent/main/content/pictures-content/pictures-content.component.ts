@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Picture} from '../../models/picture';
+import {MainService} from '../../services/main-service.service';
 
 @Component({
   selector: 'app-pictures-content',
@@ -6,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pictures-content.component.scss']
 })
 export class PicturesContentComponent implements OnInit {
-
-  constructor() { }
+  pic: Picture;
+  constructor(private mainService: MainService) { }
 
   ngOnInit() {
   }
+  onChangeFile(event: any) {
+    this.pic.picLink = event.target.files[0].name;
+    console.log('File: ', event);
+  }
 
+  onUpload() {
+    this.mainService.addPic(this.pic)
+      .subscribe( mix => {
+        // console.log('Data Uploaded');
+      });
+  }
 }

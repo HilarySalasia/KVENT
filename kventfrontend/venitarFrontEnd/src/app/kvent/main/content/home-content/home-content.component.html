@@ -1,12 +1,15 @@
-<div *ngFor="let mix of qMixes">
-  <div>
-    {{mix.mixLink}}
-  </div>
-  <div>
-    {{mix.mixTitle}}
-  </div>
-  <div>
-    {{mix.mixCompany}}
-  </div>
-  educations
+<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center d-md-inline-flex d-lg-inline-flex mt-4 mr-1 ">
+  <div class ="text-center" *ngFor="let mix of qMixes">
+    <div  width="100%" height="56%">
+      <img [src]="picHardLink + mix.picture.picLink"  width="100%" height="100%"/>
+    </div>
+    <div id="mixDetails">
+      <div id="mixTitle">
+        {{mix.mixTitle}}
+      </div>
+      <div id="mixCompany">
+        {{mix.mixCompany}}
+      </div>
+    </div>
+   </div>
 </div>
