@@ -5,6 +5,7 @@ import {Company} from '../../models/company';
 import {Mixes} from '../../models/mixes';
 import {ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
+import {Picture} from '../../models/picture';
 
 @Component({
   selector: 'app-upload-mix',
@@ -24,7 +25,7 @@ export class UploadMixComponent implements OnInit {
 
   load() {
     this.mainService.getCompanies()
-      .subscribe( company => {this.companies = company;});
+      .subscribe( company => {this.companies = company; });
   }
 
   onChangeFile(event: any) {
@@ -33,12 +34,20 @@ export class UploadMixComponent implements OnInit {
   }
 
   onUpload() {
-    this.mainService.addMix(this.mix)
-      .subscribe( mix => {
-        console.log('Data Uploaded');
-        this.router.navigate(['upload/picture']).then( );
-      });
+    if (this.mix.picture.picLink) {
+      this.mainService.addMix(this.mix)
+        .subscribe( mix => {
+          console.log('Data Uploaded');
+          // this.router.navigate(['upload/picture']).then( );
+        });
+    } else {
+      console.log('Mix: ', this.mix);
+    }
   }
 
 
+  getPicture($event: Picture) {
+    this.mix.picture = $event;
+    console.log('Picture: ', this.mix.picture);
+  }
 }

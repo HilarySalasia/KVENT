@@ -11,6 +11,9 @@ import {ContentContentComponent} from './kvent/main/content/content-content.comp
 import {HttpClientModule} from '@angular/common/http';
 import {ContentModule} from './kvent/main/content/content.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { LoadingScreenComponent } from './kvent/main/loadingScreen/loading-screen/loading-screen.component';
+import {AdsenseModule} from 'ng2-adsense';
+
 
 
 @NgModule({
@@ -22,14 +25,16 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     HeaderComponent,
     NavigationComponent,
     ExpansionComponent,
-    ContentContentComponent
+    ContentContentComponent,
+    LoadingScreenComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ContentModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    AdsenseModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

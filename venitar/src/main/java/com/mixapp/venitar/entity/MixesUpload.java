@@ -26,7 +26,7 @@ public class MixesUpload {
     @JoinColumn(name = "mix_companyID", nullable = false)
     private Company company;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "mix_cover_id", nullable = false)
     private Picture picture;
     //Getter and Setters

@@ -27,6 +27,7 @@
         <input type="file" class="form-control-file" (change)="onChangeFile($event)"/>
 
       </div>
+      <app-upload-pictures (pictureFile)="getPicture($event)"></app-upload-pictures>
       <div>
         <button type="submit" class="btn-lg bg-success" (click)="onUpload()"><h2>Upload</h2></button>
       </div>

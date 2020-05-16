@@ -1,0 +1,16 @@
+<div class="col-xl-12 col-sm-12 col-md-12 col-lg-12">
+  <div class="row">
+    <h6>Song Duration: </h6><span>{{songDur}}</span>
+  </div>
+  <div class="row">
+    <div class="col-md-11 sliderContainer">
+      <input id="{{fileUrl}}"  type="range" class="custom-range" class="slider"
+               [max]="audioDur" [value]="curDur" (change)="onSliderChange($event)" >
+    </div>
+    <div class="col-md-1">
+      <span class="text-dark mr-2"><fa-icon [icon]="faStopCircle" (click)="onStopChange()"></fa-icon></span>
+    </div>
+  </div>
+
+</div>
+

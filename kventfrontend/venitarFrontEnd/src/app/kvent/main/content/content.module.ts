@@ -12,6 +12,7 @@ import { UploadVideosComponent } from './upload-videos/upload-videos.component';
 import {ContentRoutingModule} from './content-routing.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FormsModule} from '@angular/forms';
+import {AudioComponent} from './audio-component/audio-component.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {FormsModule} from '@angular/forms';
     VideosContentComponent,
     UploadMixComponent,
     UploadPicturesComponent,
-    UploadVideosComponent
+    UploadVideosComponent,
+    AudioComponent
   ],
   // imports: [
   //   BrowserModule,

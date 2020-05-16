@@ -22,8 +22,11 @@
     "@fortawesome/angular-fontawesome": "^0.6.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
     "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "@types/jquery": "^3.3.35",
     "core-js": "^2.5.4",
     "fontawesome": "^5.6.3",
+    "jquery": "^3.5.0",
+    "ng2-adsense": "^8.0.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
