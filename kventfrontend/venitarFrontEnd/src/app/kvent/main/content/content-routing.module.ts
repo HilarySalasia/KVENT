@@ -6,6 +6,7 @@ import {HomeContentComponent} from './home-content/home-content.component';
 import {PicturesContentComponent} from './pictures-content/pictures-content.component';
 import {UploadMixComponent} from './upload-mix/upload-mix.component';
 import {UploadPicturesComponent} from './upload-pictures/upload-pictures.component';
+import {AuthenticationContentComponent} from './authentication-content/authentication-content.component';
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'events', component: EventsContentComponent },
   { path: 'pictures', component: PicturesContentComponent },
   { path: 'videos', component: VideosContentComponent},
+  { path: 'authenticate/:transc', component: AuthenticationContentComponent},
   { path: 'home', component: HomeContentComponent }
 
 ];

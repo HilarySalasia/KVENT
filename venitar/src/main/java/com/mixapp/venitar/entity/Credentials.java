@@ -21,6 +21,12 @@ public class Credentials {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String passCode;
 
+    @Column(name="created_time")
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @JsonFormat(pattern = "YYYY-MM-dd")
+    private Date createdDate;
+
     public Long getCredId() {
         return credId;
     }
@@ -45,10 +51,6 @@ public class Credentials {
         this.createdDate = createdDate;
     }
 
-    @Column(name="created_time")
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @JsonFormat(pattern = "YYYY-MM-dd")
-    private Date createdDate;
+
 
 }

@@ -5,7 +5,7 @@ import {EventsContentComponent} from './events-content/events-content.component'
 import {HomeContentComponent} from './home-content/home-content.component';
 import {PicturesContentComponent} from './pictures-content/pictures-content.component';
 import {VideosContentComponent} from './videos-content/videos-content.component';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import { UploadMixComponent } from './upload-mix/upload-mix.component';
 import { UploadPicturesComponent } from './upload-pictures/upload-pictures.component';
 import { UploadVideosComponent } from './upload-videos/upload-videos.component';
@@ -13,6 +13,7 @@ import {ContentRoutingModule} from './content-routing.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FormsModule} from '@angular/forms';
 import {AudioComponent} from './audio-component/audio-component.component';
+import { AuthenticationContentComponent } from './authentication-content/authentication-content.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {AudioComponent} from './audio-component/audio-component.component';
     UploadMixComponent,
     UploadPicturesComponent,
     UploadVideosComponent,
-    AudioComponent
+    AudioComponent,
+    AuthenticationContentComponent
   ],
   // imports: [
   //   BrowserModule,

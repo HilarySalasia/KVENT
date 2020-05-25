@@ -1,0 +1,47 @@
+.fullNameDiv {
+  width:100%;
+  display: inline-block;
+
+}
+
+input, select {
+  background-color: transparent;
+  border-style: hidden;
+  border-bottom:1px #d6d6c2 solid;
+}
+
+input:focus, select:focus{
+  outline:0px !important;
+  -webkit-appearance:none;
+  -webkit-animation: mymove 5s infinite; /* Safari 4.0 - 8.0 */
+  -moz-animation: mymove 5s infinite;
+  -ms-animation: mymove 5s infinite;
+  animation: mymove 5s infinite;
+
+}
+/* Safari 4.0 - 8.0 */
+@-webkit-keyframes mymove {
+  50% {border-bottom-color: blue;}
+}
+@-moz-keyframes mymove {
+  50% {border-bottom-color: blue;}
+}@-ms-keyframes mymove {
+   50% {border-bottom-color: blue;}
+ }
+@keyframes mymove {
+  50% {border-bottom-color: blue;}
+}
+
+.errors {
+  border: 2em;
+  color: red;
+  text-align: center;
+}
+
+.starReq {
+  color: red;
+}
+
+
+
+

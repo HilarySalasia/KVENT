@@ -8,11 +8,13 @@ import {HeaderComponent} from './kvent/main/header/header.component';
 import {NavigationComponent} from './kvent/main/navigation/navigation.component';
 import { ExpansionComponent } from './kvent/main/expansion/expansion.component';
 import {ContentContentComponent} from './kvent/main/content/content-content.component';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {ContentModule} from './kvent/main/content/content.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import { LoadingScreenComponent } from './kvent/main/loadingScreen/loading-screen/loading-screen.component';
 import {AdsenseModule} from 'ng2-adsense';
+import {LoadingScreenService} from './kvent/main/loadingScreen/loading-screen/loading-screen.service';
+import {LoaderInterceptor} from './kvent/shared/loader.interceptor';
 
 
 
@@ -36,7 +38,9 @@ import {AdsenseModule} from 'ng2-adsense';
     FontAwesomeModule,
     AdsenseModule.forRoot()
   ],
-  providers: [],
+  providers: [LoadingScreenService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

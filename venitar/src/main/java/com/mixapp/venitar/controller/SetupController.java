@@ -1,10 +1,7 @@
 package com.mixapp.venitar.controller;
 
 import com.mixapp.venitar.entity.*;
-import com.mixapp.venitar.exception.InvalidCompanyException;
-import com.mixapp.venitar.exception.InvalidCountryException;
-import com.mixapp.venitar.exception.InvalidCountyException;
-import com.mixapp.venitar.exception.InvalidWardException;
+import com.mixapp.venitar.exception.*;
 import com.mixapp.venitar.repository.CountryRepository;
 import com.mixapp.venitar.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +26,8 @@ public class SetupController {
     CountyService countyService;
     @Autowired
     PictureService pictureService;
+    @Autowired
+    TownService townService;
 
     InvalidCountryException invalidCountryException;
     //Country Setup
@@ -119,5 +118,25 @@ public class SetupController {
     @PostMapping("addPicture")
     Picture addPicture(@RequestBody Picture picture) {
         return pictureService.addPicture(picture);
+    }
+
+    @GetMapping("getTowns")
+    List<Town> getTowns(){
+        return townService.getTowns();
+    }
+
+    @GetMapping("getTown")
+    Town getTown(@RequestParam(name = "townId") Long townId){
+        return townService.getTown(townId);
+    }
+
+    @PutMapping("updateTown")
+    Town updateTown(@RequestBody Town town) throws InvalidTownException {
+        return townService.updateTown(town);
+    }
+
+    @DeleteMapping("deleteTown")
+    void deleteTown(Long townId){
+        townService.deleteTown(townId);
     }
 }

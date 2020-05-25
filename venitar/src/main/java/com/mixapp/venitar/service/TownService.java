@@ -16,7 +16,7 @@ public class TownService {
     private InvalidTownException invalidTownException;
 
 
-    public List<Town> getAllTowns()  {
+    public List<Town> getTowns()  {
         return townRepository.findAll();
     }
 
