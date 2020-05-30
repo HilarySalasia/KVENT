@@ -16,7 +16,7 @@ import {Login} from '../models/login';
   providedIn: 'root'
 })
 export class MainService {
-  public allMixesUrl = environment.links.getAllMixes;
+  public baseURL = environment.backend.baseURL;
   public httpOptions =  new HttpHeaders({
       'Content-Type':  'application/json',
       'Authorization': 'my-auth-token',
@@ -26,12 +26,17 @@ export class MainService {
   }
 
   public getAllMixes(): Observable<Mixes[]> {
-    return this.http.get<Mixes[]>('/Kvent/api/getAllMixes', {headers: this.httpOptions});
+    return this.http.get<Mixes[]>('/Kvent/api/getMixes', {headers: this.httpOptions});
   }
 
   public getPictureById(picId: Number): Observable<Picture> {
     const params = new HttpParams().set('picId', picId.toString());
     return this.http.get<Picture>('/Kvent/setup/getPictureById', {headers: this.httpOptions, params: params} );
+  }
+
+  public getUserById(userId: number): Observable<User> {
+    const params = new HttpParams().set('userId', userId.toString());
+    return this.http.get<User>('/Kvent/api/getUser', {headers: this.httpOptions, params: params} );
   }
 
   public getCompanies(): Observable<Company[]> {

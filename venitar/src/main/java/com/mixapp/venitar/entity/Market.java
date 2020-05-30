@@ -30,6 +30,9 @@ public class Market {
     @JoinColumn(name = "markp_comp_id", nullable = false)
     private Company company;
 
+    @Column(name = "markp_item_user_id")
+    private Long userId;
+
     public Long getMarketId() {
         return marketId;
     }
@@ -84,5 +87,13 @@ public class Market {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

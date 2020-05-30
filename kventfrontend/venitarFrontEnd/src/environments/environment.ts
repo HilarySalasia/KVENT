@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  links: {
-    getAllMixes: 'http://localhost:8082/Kvent/api/getAllMixes'
+  backend: {
+    baseURL: 'http://localhost:8082/Kvent'
   }
 };
 

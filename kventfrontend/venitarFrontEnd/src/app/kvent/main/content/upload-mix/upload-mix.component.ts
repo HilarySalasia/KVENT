@@ -6,6 +6,7 @@ import {Mixes} from '../../models/mixes';
 import {ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Picture} from '../../models/picture';
+import {HeaderComponent} from '../../header/header.component';
 
 @Component({
   selector: 'app-upload-mix',
@@ -16,10 +17,13 @@ export class UploadMixComponent implements OnInit {
     url: string | ArrayBuffer;
     companies: Company[];
     mix: Mixes = <Mixes> {mixCompany: {}, picture: {}};
+    userID: number;
   constructor(private mainService: MainService,
-              private router: Router) { }
+              private router: Router,
+              private headerComponent: HeaderComponent) { }
   public faCheckCircle = faCheckCircle;
   ngOnInit() {
+    this.userID = this.headerComponent.loginId;
     this.load();
   }
 

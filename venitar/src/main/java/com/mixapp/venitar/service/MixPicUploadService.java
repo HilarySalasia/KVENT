@@ -45,6 +45,7 @@ public class MixPicUploadService {
     }
 
     MixPicUpload mixPicUpload(MixPicUpload mixPicUpload) {
+
         return mixPicUploadRepository.saveAndFlush(mixPicUpload);
     }
 }

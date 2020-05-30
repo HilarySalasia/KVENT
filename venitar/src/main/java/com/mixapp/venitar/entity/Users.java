@@ -40,6 +40,8 @@ public class Users implements Serializable {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "user_folder_link")
+    private String folderLink;
 
     @Column(name = "dob")
     @Temporal(TemporalType.DATE)
@@ -181,5 +183,13 @@ public class Users implements Serializable {
 
     public void setWard(Ward ward) {
         this.ward = ward;
+    }
+
+    public String getFolderLink() {
+        return folderLink;
+    }
+
+    public void setFolderLink(String folderLink) {
+        this.folderLink = folderLink;
     }
 }

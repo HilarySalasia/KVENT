@@ -1,35 +1,34 @@
 <div xmlns="http://www.w3.org/1999/html">
   <div>
-    <form class="form-group">
-<!--      <div>-->
-<!--        <label for="mix_name">Mix Name<span style="color: red;">**</span></label>-->
-<!--        <input id="mix_name" type="text" class="required form-control" [required]="true" [(ngModel)]="mix."/>-->
-
-<!--      </div>-->
+    <form ngNativeValidate #mixForm>
       <div>
-        <label for="mix_title">Mix Title<span style="color: red;">**</span></label>
-        <input id="mix_title" name="mix_title" class="form-control" [(ngModel)]="mix.mixTitle" [required]="true" >
+        <label for="mix_title">Mix Title<span class="starReq">*</span></label>
+        <input id="mix_title" name="mix_title" class="form-control" [(ngModel)]="mix.mixTitle" required>
 
       </div>
       <div>
-        <label for="mix_company">Company<span style="color: red;">**</span></label>
+        <label for="mix_company">Company<span class="starReq">*</span></label>
         <select id="mix_company" name="mix_company" class="form-control" [(ngModel)]="mix.mixCompany.companyId"
-                [required]="true" >
+                required>
           <option [disabled]="true">Select A Company</option>
-          <option  *ngFor="let company of companies" [value] = company.companyId >{{company.companyName}}</option>
+          <option  *ngFor="let company of companies" [value] = company.companyId>
+            {{company.companyName}}</option>
         </select>
       </div>
 
       <br/>
       <hr/>
       <div>
-        <h3>Upload Mix</h3>
-        <input type="file" class="form-control-file" (change)="onChangeFile($event)"/>
+        <span class="starReq h3">Upload Mix</span>
+        <input type="file" class="form-control-file" (change)="onChangeFile($event)" required/>
 
       </div>
       <app-upload-pictures (pictureFile)="getPicture($event)"></app-upload-pictures>
       <div>
-        <button type="submit" class="btn-lg bg-success" (click)="onUpload()"><h2>Upload</h2></button>
+
+        <button type="submit" class="btn-lg bg-success h3"
+                (click)="mixForm.checkValidity() && userID ? onUpload() : null">
+          Upload</button>
       </div>
     </form>
   </div>

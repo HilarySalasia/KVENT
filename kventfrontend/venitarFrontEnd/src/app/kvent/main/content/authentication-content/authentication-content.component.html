@@ -268,11 +268,10 @@
                 <div class="row">
                   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="row justify-content-center">
-                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 border-top border-danger
-                                   mt-md-3 mt-lg-3 bg-dark errors"
-                           *ngIf="passCode != confPassCode && confPassCode && passCode">
-                        <span class="justify-content-center">Passwords don't Match</span>
-                      </div>
+                      <app-form-error-component [errorMessage]="matchError"
+                                                *ngIf="passCode != confPassCode && confPassCode && passCode">
+
+                      </app-form-error-component>
                     </div>
                   </div>
                 </div>
@@ -332,7 +331,8 @@
             <div class="row">
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="row">
-                  <label for="lgnPassword" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">Password<span class="starReq">*</span></label>
+                  <label for="lgnPassword" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+                    Password<span class="starReq">*</span></label>
                 </div>
                 <div class="row">
                   <input id="lgnPassword" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 "
@@ -343,8 +343,8 @@
 
           </div>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="row border-top border-danger mt-md-3 mt-lg-3 bg-dark errors">
-              <span class="justify-content-center">Message</span>
+            <div class="row justify-content-center">
+              <app-form-error-component [errorMessage]="'Message'"></app-form-error-component>
             </div>
             <div class="row mt-md-2 mt-lg-2">
               <button class="col-xs-12 col-sm-12 col-md-6 col-lg-6 btn btn-lg bg-success" name="lgnSubmit"

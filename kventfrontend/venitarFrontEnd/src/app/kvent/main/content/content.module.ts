@@ -14,6 +14,10 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FormsModule} from '@angular/forms';
 import {AudioComponent} from './audio-component/audio-component.component';
 import { AuthenticationContentComponent } from './authentication-content/authentication-content.component';
+import {AppModule} from '../../../app.module';
+import {SharedModule} from '../../shared/shared.module';
+import {AuthenticationContentService} from './authentication-content/authentication-content.service';
+
 
 
 @NgModule({
@@ -26,19 +30,17 @@ import { AuthenticationContentComponent } from './authentication-content/authent
     UploadPicturesComponent,
     UploadVideosComponent,
     AudioComponent,
-    AuthenticationContentComponent
+    AuthenticationContentComponent,
   ],
-  // imports: [
-  //   BrowserModule,
-  //   AppRoutingModule
-  // ],
-  providers: [],
+
+  providers: [AuthenticationContentService],
   imports: [
     CommonModule,
     ContentRoutingModule,
     FontAwesomeModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
-  // bootstrap: []
+  // bootstrap: [AppModule]
 })
 export class ContentModule { }

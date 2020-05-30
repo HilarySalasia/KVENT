@@ -1,5 +1,8 @@
 package com.mixapp.venitar.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -29,6 +32,10 @@ public class MixesUpload {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "mix_cover_id", nullable = false)
     private Picture picture;
+
+    @Column(name = "mix_user_id", nullable = false)
+    private Long userId;
+
     //Getter and Setters
     public Long getMixId() {
         return mixId;
@@ -84,5 +91,13 @@ public class MixesUpload {
 
     public void setPicture(Picture picture) {
         this.picture = picture;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

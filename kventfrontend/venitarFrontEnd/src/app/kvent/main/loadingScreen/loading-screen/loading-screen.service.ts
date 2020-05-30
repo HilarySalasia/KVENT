@@ -10,7 +10,9 @@ export class LoadingScreenService {
     this.isLoading.next(true);
   }
   hide() {
-    this.isLoading.next(false);
+    setInterval(() => {
+      this.isLoading.next(false);
+    }, 5000);
   }
 
 }

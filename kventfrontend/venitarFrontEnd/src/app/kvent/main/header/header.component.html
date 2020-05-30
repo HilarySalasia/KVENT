@@ -22,10 +22,16 @@
               <div class="col-md-12 col-lg-12">
                 <div class="row">
                   <div class="col-md-6">
-                    <button  (click)="accessProcedure('login')"><span>Login</span></button>
+                    <button  (click)="accessProcedure('login')" *ngIf="!loginState">
+                      <span>Login</span></button>
+                    <span *ngIf="loginState">{{user.firstName}}</span>
                   </div>
                   <div class="col-md-6">
-                    <button  (click)="accessProcedure('signup')"><span>Sign Up</span></button>
+                    <button  (click)="accessProcedure('signup')" *ngIf="!loginState">
+                      <span>Sign Up</span></button>
+
+                    <button  (click)="accessProcedure('logout')" *ngIf="loginState">
+                      <span>Log Out</span></button>
                   </div>
                 </div>
               </div>

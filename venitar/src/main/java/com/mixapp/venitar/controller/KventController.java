@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -34,20 +36,37 @@ public class KventController {
  }
 
  @PostMapping("/addUser")
- Users addUser(@RequestBody Users users) throws InvalidUsersException { return usersService.addUser(users);
+ Users addUser(@RequestBody Users users) throws InvalidUsersException,
+         IOException { return usersService.addUser(users);
  }
+
+ @GetMapping("/getUsers")
+ List<Users> getAllUser() throws InvalidUsersException { return usersService.findAllUsers();}
+
+ @GetMapping("/getMixes")
+ List<MixesUpload> getAllMixes() {
+  return mixesUploadService.getAllMixes();
+ }
+
+ @GetMapping("/getUser")
+ Users getUser(@RequestParam(name = "userId") Long userId){
+  return usersService.findUser(userId);
+ }
+
+ @PutMapping("/updateUser")
+ Users updateUser(@RequestBody Users user){
+  return usersService.editUsers(user);
+ }
+
+ @DeleteMapping("/updateUser")
+ void deleteUser(@RequestParam(name = "userId") Long userId){
+  usersService.deleteUser(userId);
+ }
+
  @PostMapping("/login")
  Login loginUser(@RequestParam(name="username") String username,
                  @RequestParam(name = "password") String password) throws InvalidLoginException{
   return loginService.loginUsers(username, password);
- }
-
- @GetMapping("/getAllUser")
- List<Users> getAllUser() throws InvalidUsersException { return usersService.findAllUsers();}
-
- @GetMapping("/getAllMixes")
- List<MixesUpload> getAllMixes() {
-  return mixesUploadService.getAllMixes();
  }
 
  @GetMapping("/getMixById")
@@ -56,8 +75,8 @@ public class KventController {
  }
 
  @PostMapping("/addMix")
- MixesUpload addMix(@RequestBody MixesUpload mix) {
- return mixesUploadService.uploadMix(mix);
+ MixesUpload addMix(@RequestBody MixesUpload mix, MultipartFile file) throws IOException{
+   return mixesUploadService.uploadMix(mix, file);
  }
 
  @PutMapping("/updateMix")

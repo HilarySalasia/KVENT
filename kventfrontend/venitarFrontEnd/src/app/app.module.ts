@@ -15,32 +15,36 @@ import { LoadingScreenComponent } from './kvent/main/loadingScreen/loading-scree
 import {AdsenseModule} from 'ng2-adsense';
 import {LoadingScreenService} from './kvent/main/loadingScreen/loading-screen/loading-screen.service';
 import {LoaderInterceptor} from './kvent/shared/loader.interceptor';
+import {FormErrorComponent} from './kvent/shared/form-error-component/form-error-component';
+import {SharedModule} from './kvent/shared/shared.module';
 
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    NavigationComponent,
-    FooterComponent,
-    HeaderComponent,
-    NavigationComponent,
-    ExpansionComponent,
-    ContentContentComponent,
-    LoadingScreenComponent
-  ],
+    declarations: [
+        AppComponent,
+        NavigationComponent,
+        FooterComponent,
+        NavigationComponent,
+        ExpansionComponent,
+        ContentContentComponent,
+        LoadingScreenComponent,
+        HeaderComponent,
+
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ContentModule,
     FontAwesomeModule,
-    AdsenseModule.forRoot()
+    AdsenseModule.forRoot(),
+    SharedModule
   ],
-  providers: [LoadingScreenService,
-    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
-  ],
-  bootstrap: [AppComponent]
+    providers: [LoadingScreenService,
+        {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}
+    ],
+  exports: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

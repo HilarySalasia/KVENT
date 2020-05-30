@@ -12,6 +12,8 @@ import {forkJoin, of, pipe} from 'rxjs';
 import {MainService} from '../../services/main-service.service';
 import {Md5} from 'ts-md5';
 import {Login} from '../../models/login';
+import {HeaderComponent} from '../../header/header.component';
+import {AuthenticationContentService} from './authentication-content.service';
 // import * as fs from 'fs';
 
 @Component({
@@ -38,10 +40,14 @@ export class AuthenticationContentComponent implements OnInit {
    dir = './tmp';
    username: string;
    password: string;
+   allowedLogin: Login = <Login> {};
+   matchError: String = 'Passwords Don\'t Match!!';
 
   constructor(private route: ActivatedRoute,
               private cdr: ChangeDetectorRef,
-              private mainService: MainService) { }
+              private mainService: MainService,
+              private router: Router,
+              private acs: AuthenticationContentService) { }
 
   ngOnInit(): void {
     this.rangeDates();
@@ -111,11 +117,6 @@ export class AuthenticationContentComponent implements OnInit {
         this.user = <User> {country: {},  county: {},  ward: {},  town: {},  credentials: {}};
         this.confPassCode = null;
         this.passCode = null;
-
-
-        // if (!fs.existsSync(dir)){
-        //   fs.mkdirSync(dir);
-        // }
         this.cdr.detectChanges();
       });
   }
@@ -125,6 +126,16 @@ export class AuthenticationContentComponent implements OnInit {
     const encryPass = md5.appendStr(this.password).end().toString();
     this.mainService.loginUser(this.username, encryPass).subscribe(login => {
       console.log(login);
+      this.allowedLogin = login;
+
+      if (login.loginUser != null) {
+        this.acs.login(login.loginUser, login.loginToken);
+        this.router.navigate(['/']).then(() => {window.location.reload();});
+      }
+
+      this.cdr.detectChanges();
     });
   }
+
+
 }

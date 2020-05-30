@@ -32,15 +32,13 @@ public class Event {
     @Column(name = "evnt_cost")
     private String eventCost;
 
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @JsonFormat(pattern = "YYYY-MM-dd'T'HH:mm:ss.SSSZ")
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name ="evnt_start_date")
     private Date eventStartDate;
 
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @JsonFormat(pattern = "YYYY-MM-dd'T'HH:mm:ss.SSSZ")
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     @Column(name ="evnt_end_date")
     private Date eventEndDate;
 
@@ -51,6 +49,9 @@ public class Event {
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "evnt_curr_id", nullable = false)
     private Currency currency;
+
+    @Column(name = "evnt_user_id")
+    private Long userId;
 
     public Long getEventId() {
         return eventId;
@@ -138,5 +139,13 @@ public class Event {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

@@ -5,6 +5,7 @@ import com.mixapp.venitar.exception.InvalidUsersException;
 import com.mixapp.venitar.models.VentError;
 import com.mixapp.venitar.repository.UsersRepository;
 import lombok.val;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,31 +27,15 @@ public class UsersService {
     private static final File TEMP_DIRECTORY =
             new File(System.getProperty("java.io.tmpdir"));
 
-     public Users addUser(Users user) throws InvalidUsersException {
+     public Users addUser(Users user) throws InvalidUsersException, IOException {
         Users checkUser = usersRepository.findUsersByEmail(user.getEmail());
 
         if (checkUser == null) {
-             usersRepository.save(user);
+            usersRepository.save(user);
             Users saved = usersRepository.findUsersByEmail(user.getEmail());
-//            File tmpDir = new File("tmp/venitarL");
-//            if (!tmpDir.isDirectory()) {
-//                try {
-//                     Files.createDirectory(tmpDir.toPath());
-//
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//            File newDirectory = new File(TEMP_DIRECTORY,
-//                    saved.getUserCode().toString());
-//               if (!newDirectory.exists()) {
-//                   newDirectory.mkdir();
-//                   System.out.println("Directory Successfully Created");
-//                   return user;
-//               } else {
-//                   throw new InvalidUsersException(invalidUsersException.getDupDirectory());
-//               }
-            return saved;
+            saved.setFolderLink("/temp/user/" + saved.getUserCode());
+            FileUtils.forceMkdir(new java.io.File("." + saved.getFolderLink()));
+            return editUsers(saved);
         } else {
             throw new InvalidUsersException(invalidUsersException.getDupUser());
         }
@@ -61,15 +46,15 @@ public class UsersService {
          return usersRepository.findAll();
     }
 
-    Users findUsers(Long userId) {
+    public Users findUser(Long userId) {
          return usersRepository.getOne(userId);
     }
 
-    List<Users> findUsersByNames(String name) {
+    public List<Users> findUsersByNames(String name) {
          return usersRepository.findUsersByNames(name);
     }
 
-    Users editUsers(Users users) {
+    public Users editUsers(Users users) {
          Users conf = usersRepository.getOne(users.getUserCode());
          if (conf != null) {
              return usersRepository.save(users);
@@ -77,5 +62,9 @@ public class UsersService {
              return conf;
          }
 
+    }
+
+    public void deleteUser(Long userId) {
+         usersRepository.deleteById(userId);
     }
 }

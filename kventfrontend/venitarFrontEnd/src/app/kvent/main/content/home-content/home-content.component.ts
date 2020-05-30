@@ -26,7 +26,8 @@ public faDownload = faDownload;
   disbPlay: boolean = false;
 
   constructor(private mainService: MainService,
-              private _cdr: ChangeDetectorRef) { }
+              private _cdr: ChangeDetectorRef) {
+  }
 
   ngOnInit() {
     this.picHardLink = 'assets/TempContent/Pictures/';
