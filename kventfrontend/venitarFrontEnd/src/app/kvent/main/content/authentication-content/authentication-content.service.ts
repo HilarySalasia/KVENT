@@ -1,17 +1,20 @@
+import {SitesessionServiceService} from '../../services/sitesession-service.service';
+import {Injectable} from '@angular/core';
+
+@Injectable()
 export class AuthenticationContentService {
-  constructor() {
+  constructor(private ssS: SitesessionServiceService) {
   }
 
   logout(): void {
-    localStorage.setItem('userState', 'false');
-    localStorage.removeItem('userID');
-    localStorage.removeItem('userToken');
+    this.ssS.removeUser();
   }
 
   login(userId: number, userToken: string): void {
-    localStorage.setItem('userID', userId.toString());
-    localStorage.setItem('userToken', userToken);
-    localStorage.setItem('userState', 'true');
+    this.ssS.setUserId(userId.toString());
+    this.ssS.setUserToken(userToken);
+    this.ssS.setUserState('true');
     console.log('Local Storage: ', localStorage);
   }
+
 }

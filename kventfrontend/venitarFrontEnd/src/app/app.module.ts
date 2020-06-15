@@ -17,6 +17,12 @@ import {LoadingScreenService} from './kvent/main/loadingScreen/loading-screen/lo
 import {LoaderInterceptor} from './kvent/shared/loader.interceptor';
 import {FormErrorComponent} from './kvent/shared/form-error-component/form-error-component';
 import {SharedModule} from './kvent/shared/shared.module';
+import {SitesessionServiceService} from './kvent/main/services/sitesession-service.service';
+import {GoogleService} from './kvent/main/services/extServices/google.service';
+import {HeaderService} from './kvent/main/header/header.service';
+import {MainService} from './kvent/main/services/main-service.service';
+import {SetupService} from './kvent/main/services/setup.service';
+import {BusinessService} from './kvent/main/services/business.service';
 
 
 
@@ -41,7 +47,8 @@ import {SharedModule} from './kvent/shared/shared.module';
     AdsenseModule.forRoot(),
     SharedModule
   ],
-    providers: [LoadingScreenService,
+    providers: [LoadingScreenService, SitesessionServiceService, GoogleService, HeaderService,
+      MainService, SetupService, BusinessService,
         {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}
     ],
   exports: [],

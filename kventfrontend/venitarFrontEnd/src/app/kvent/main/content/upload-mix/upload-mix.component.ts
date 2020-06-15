@@ -7,6 +7,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {Picture} from '../../models/picture';
 import {HeaderComponent} from '../../header/header.component';
+import {SitesessionServiceService} from '../../services/sitesession-service.service';
 
 @Component({
   selector: 'app-upload-mix',
@@ -20,10 +21,10 @@ export class UploadMixComponent implements OnInit {
     userID: number;
   constructor(private mainService: MainService,
               private router: Router,
-              private headerComponent: HeaderComponent) { }
+              private ssS: SitesessionServiceService) { }
   public faCheckCircle = faCheckCircle;
   ngOnInit() {
-    this.userID = this.headerComponent.loginId;
+    this.userID = this.ssS.getUserId();
     this.load();
   }
 

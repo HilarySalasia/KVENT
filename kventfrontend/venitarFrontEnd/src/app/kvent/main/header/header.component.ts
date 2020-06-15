@@ -11,6 +11,8 @@ import {Ward} from '../models/ward';
 import {Town} from '../models/town';
 import {Credentials} from '../models/credentials';
 import {AuthenticationContentService} from '../content/authentication-content/authentication-content.service';
+import {SitesessionServiceService} from '../services/sitesession-service.service';
+import {HeaderService} from './header.service';
 
 @Component({
   selector: 'app-header',
@@ -22,6 +24,9 @@ export class HeaderComponent implements OnInit {
   dateNow: Date = new Date();
   private _loginState: boolean;
   private _loginId: number;
+  private _userDetails: User;
+
+
   user: User = <User> {country: {},  county: {},  ward: {},  town: {},  credentials: {}}
 
 
@@ -47,9 +52,12 @@ export class HeaderComponent implements OnInit {
     this._loginId = value;
   }
 
+
   constructor(private router: Router,
               private mainService: MainService,
-              private acs: AuthenticationContentService) {
+              private acs: AuthenticationContentService,
+              private ssS: SitesessionServiceService,
+              private headerService: HeaderService) {
     setInterval(() => {
       this.dateNow = new Date();
     }, 1);
@@ -58,11 +66,12 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {
-    this._loginId = +localStorage.getItem('userID');
-    this._loginState = localStorage.getItem('userState') === 'true';
+    this.loginId = this.ssS.getUserId();
+    this._loginState = this.ssS.checkUserState();
     this.picHardLink = 'assets/TempContent/Pictures/Logo1.png';
     // tslint:disable-next-line:no-unused-expression
     this._loginState ? this.getUserDetails(this._loginId) : null;
+    this.headerService.setUserDetails(this.user);
   }
 
   accessProcedure(procType: string) {
@@ -78,6 +87,7 @@ export class HeaderComponent implements OnInit {
     this.mainService.getUserById(userId)
       .subscribe(user => {
         this.user = user;
+        this.headerService.setUserDetails(user);
       });
   }
 

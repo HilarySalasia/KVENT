@@ -15,7 +15,7 @@ public class EventService {
     private EventRepository eventRepository;
 
     public Event addEvent(Event event) {
-        return checkEventByEventTitle(event.getEventTitle()) ? eventRepository.saveAndFlush(event) : null;
+        return !checkEventByEventTitle(event.getEventTitle()) ? eventRepository.saveAndFlush(event) : null;
     }
 
     public boolean checkEventByEventTitle(String eventTitle) {

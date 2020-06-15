@@ -12,9 +12,7 @@ import {Town} from '../models/town';
 import {User} from '../models/user';
 import {Login} from '../models/login';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class MainService {
   public baseURL = environment.backend.baseURL;
   public httpOptions =  new HttpHeaders({
@@ -26,49 +24,24 @@ export class MainService {
   }
 
   public getAllMixes(): Observable<Mixes[]> {
-    return this.http.get<Mixes[]>('/Kvent/api/getMixes', {headers: this.httpOptions});
-  }
-
-  public getPictureById(picId: Number): Observable<Picture> {
-    const params = new HttpParams().set('picId', picId.toString());
-    return this.http.get<Picture>('/Kvent/setup/getPictureById', {headers: this.httpOptions, params: params} );
+    return this.http.get<Mixes[]>(this.baseURL + '/Kvent/api/getMixes', {headers: this.httpOptions});
   }
 
   public getUserById(userId: number): Observable<User> {
     const params = new HttpParams().set('userId', userId.toString());
-    return this.http.get<User>('/Kvent/api/getUser', {headers: this.httpOptions, params: params} );
+    return this.http.get<User>(this.baseURL + '/Kvent/api/getUser', {headers: this.httpOptions, params: params} );
   }
 
   public getCompanies(): Observable<Company[]> {
-    return this.http.get<Company[]>('/Kvent/setup/getCompanies', {headers: this.httpOptions});
+    return this.http.get<Company[]>(this.baseURL + '/Kvent/setup/getCompanies', {headers: this.httpOptions});
   }
 
   public addMix(mix: Mixes): Observable<Mixes> {
-    return this.http.post<Mixes>('/Kvent/api/addMix', mix, {headers: this.httpOptions});
-  }
-
-  public addPic(pic: Picture): Observable<Picture> {
-    return this.http.post<Picture>('/Kvent/setup/addPicture', pic, {headers: this.httpOptions});
-  }
-
-  public getCountries(): Observable<Country[]> {
-    return this.http.get<Country[]>('/Kvent/setup/getCountries', {headers: this.httpOptions});
-  }
-
-  public getCounties(): Observable<County[]> {
-    return this.http.get<County[]>('/Kvent/setup/getCounties', {headers: this.httpOptions});
-  }
-
-  public getWards(): Observable<Ward[]> {
-    return this.http.get<Ward[]>('/Kvent/setup/getWards', {headers: this.httpOptions});
-  }
-
-  public getTowns(): Observable<Town[]> {
-    return this.http.get<Town[]>('/Kvent/setup/getTowns', {headers: this.httpOptions});
+    return this.http.post<Mixes>(this.baseURL + '/Kvent/api/addMix', mix, {headers: this.httpOptions});
   }
 
   public addUser(user: User): Observable<User> {
-    return this.http.post<User>('/Kvent/api/addUser', user, {headers: this.httpOptions});
+    return this.http.post<User>(this.baseURL + '/Kvent/api/addUser', user, {headers: this.httpOptions});
   }
 
   public loginUser(username: string, password: string): Observable<Login> {
@@ -82,6 +55,7 @@ export class MainService {
     //   }
     // });
     console.log('params: ', params);
-    return this.http.post<Login>('/Kvent/api/login', null, {headers: this.httpOptions, params: params});
+    return this.http.post<Login>(this.baseURL + '/Kvent/api/login', null,
+      {headers: this.httpOptions, params: params});
   }
 }

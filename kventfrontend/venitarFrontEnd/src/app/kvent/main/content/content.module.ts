@@ -17,6 +17,8 @@ import { AuthenticationContentComponent } from './authentication-content/authent
 import {AppModule} from '../../../app.module';
 import {SharedModule} from '../../shared/shared.module';
 import {AuthenticationContentService} from './authentication-content/authentication-content.service';
+import { CreateEventContentComponent } from './events-content/create-event-content/create-event-content.component';
+import {SitesessionServiceService} from '../services/sitesession-service.service';
 
 
 
@@ -31,9 +33,10 @@ import {AuthenticationContentService} from './authentication-content/authenticat
     UploadVideosComponent,
     AudioComponent,
     AuthenticationContentComponent,
+    CreateEventContentComponent,
   ],
 
-  providers: [AuthenticationContentService],
+  providers: [AuthenticationContentService, SitesessionServiceService],
   imports: [
     CommonModule,
     ContentRoutingModule,

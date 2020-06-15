@@ -14,6 +14,7 @@ import {Md5} from 'ts-md5';
 import {Login} from '../../models/login';
 import {HeaderComponent} from '../../header/header.component';
 import {AuthenticationContentService} from './authentication-content.service';
+import {SetupService} from '../../services/setup.service';
 // import * as fs from 'fs';
 
 @Component({
@@ -47,7 +48,8 @@ export class AuthenticationContentComponent implements OnInit {
               private cdr: ChangeDetectorRef,
               private mainService: MainService,
               private router: Router,
-              private acs: AuthenticationContentService) { }
+              private acs: AuthenticationContentService,
+              private setupService: SetupService) { }
 
   ngOnInit(): void {
     this.rangeDates();
@@ -91,12 +93,12 @@ export class AuthenticationContentComponent implements OnInit {
   }
 
   loadSignUp() {
-    this.mainService.getCountries()
+    this.setupService.getCountries()
       .pipe(
       mergeMap(countries => {
-        const $counties = this.mainService.getCounties();
-        const $wards = this.mainService.getWards();
-        const $towns = this.mainService.getTowns();
+        const $counties = this.setupService.getCounties();
+        const $wards = this.setupService.getWards();
+        const $towns = this.setupService.getTowns();
         return forkJoin(of(countries), $counties, $wards, $towns);
       })
     ).subscribe(([countries, counties, wards, towns]) => {

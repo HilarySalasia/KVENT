@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Picture} from '../../models/picture';
 import {MainService} from '../../services/main-service.service';
+import {SetupService} from '../../services/setup.service';
 
 @Component({
   selector: 'app-pictures-content',
@@ -9,7 +10,7 @@ import {MainService} from '../../services/main-service.service';
 })
 export class PicturesContentComponent implements OnInit {
   pic: Picture;
-  constructor(private mainService: MainService) { }
+  constructor(private setupService: SetupService) { }
 
   ngOnInit() {
   }
@@ -19,7 +20,7 @@ export class PicturesContentComponent implements OnInit {
   }
 
   onUpload() {
-    this.mainService.addPic(this.pic)
+    this.setupService.addPic(this.pic)
       .subscribe( mix => {
         // console.log('Data Uploaded');
       });

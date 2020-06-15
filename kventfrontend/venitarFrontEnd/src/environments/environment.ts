@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   backend: {
-    baseURL: 'http://localhost:8082/Kvent'
+    baseURL: 'http://localhost:8082'
   }
 };
 

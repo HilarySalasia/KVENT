@@ -16,7 +16,9 @@ import java.util.List;
 public class KVBusController {
     @Autowired
     private EventService eventService;
+    @Autowired
     private CurrencyService currencyService;
+    @Autowired
     private MarketService marketService;
 
     // Event

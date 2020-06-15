@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
     @Query("select e from Event e where e.eventTitle = ?1 ")
-    Currency findEventByEventTitle(String eventTitle);
+    Event findEventByEventTitle(String eventTitle);
 }

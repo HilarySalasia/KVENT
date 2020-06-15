@@ -1,0 +1,104 @@
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+  <form ngNativeValidate #eventForm>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+  <!--      1st Row-->
+        <div class="row mb-3">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="row mr-md-2 mr-lg-2">
+              <label>Event Name</label>
+
+              <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name="eventName" placeholder="Event Name"
+                     [(ngModel)]="event2Create.eventTitle" type="text" required>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+            <div class="row">
+              <label>Event Location</label>
+
+              <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name="eventLoc" placeholder="Event Location"
+                     [(ngModel)]="event2Create.eventLocation" (change)="findLocation($event)" type="text" required>
+            </div>
+          </div>
+        </div>
+  <!--      2nd Row-->
+        <div class="row mb-3">
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="row mr-md-2 mr-lg-2">
+              <label>Event Capacity</label>
+
+              <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name="eventCap" placeholder="Event Capacity"
+                     [(ngModel)]="event2Create.eventCapacity" type="text" required>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="row mr-md-2 mr-lg-2">
+              <label>Event Currency</label>
+
+              <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name="eventCurrency"
+                      [(ngModel)]="event2Create.currency.currencyId"  required>
+                <option *ngFor="let currency of currencies" value="{{currency.currencyId}}">
+                  {{currency.currencyDesc}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="row">
+              <label>Event Cost</label>
+
+              <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name="eventCost" placeholder="Event Cost"
+                     [(ngModel)]="event2Create.eventCost" type="text" required>
+            </div>
+          </div>
+        </div>
+  <!--      3rd Row-->
+        <div class="row mb-3">
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="row mr-md-2 mr-lg-2">
+              <label>Event Start Date</label>
+            <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name="eventStartDate"
+                   [(ngModel)]="event2Create.eventStartDate" type="date" required>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="row mr-md-2 mr-lg-2">
+              <label>Event End Date</label>
+
+              <input class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name="eventEndDate"
+                       [(ngModel)]="event2Create.eventEndDate" type="date" required>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+            <div class="row">
+              <label>Event Company</label>
+
+              <select class="col-xs-12 col-sm-12 col-md-12 col-lg-12" name="eventCompany"
+                      [(ngModel)]="event2Create.company.companyId" type="text" required>
+                <option *ngFor="let company of companies" value="{{company.companyId}}">
+                  {{company.companyName}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="bottom: 0;">
+          <span >
+            <button class="col-xs-12 col-sm-12 col-md-12 col-lg-12
+            btn btn-lg bg-success" name="submit" type="submit"
+                    (click) = "eventForm.checkValidity() && loginState ? createEvent() : null">
+              Create Event</button></span>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <iframe
+              width="100%" height="350" frameborder="0" style="border:0"
+              class="e2e-iframe-trusted-src"
+              [src]="locLink"
+               allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
