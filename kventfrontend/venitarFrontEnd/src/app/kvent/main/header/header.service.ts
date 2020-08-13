@@ -3,10 +3,13 @@ import {Injectable} from '@angular/core';
 import {User} from '../models/user';
 import {Observable, of} from 'rxjs';
 
-
+@Injectable()
 export class HeaderService {
   private _userDetails: User = <User> {};
   state: boolean;
+  sendTitle;
+  sendSubTitle;
+
   get userDetails() {
     return this._userDetails;
   }
@@ -26,5 +29,21 @@ export class HeaderService {
   public setUserDetails(user: User) {
     console.log('userDets: ', user);
     this.userDetails = user;
+  }
+
+  public setTitle(title: string) {
+    this.sendTitle = title;
+  }
+
+  public setSubTitle(subTitle: string) {
+    this.sendSubTitle = subTitle;
+  }
+
+  public getTitle() {
+    return this.sendTitle === null ? 'Loading Title' : this.sendTitle;
+  }
+
+  public getSubTitle() {
+    return this.sendSubTitle;
   }
 }

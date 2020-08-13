@@ -5,16 +5,21 @@ import com.mixapp.venitar.entity.MixesUpload;
 import com.mixapp.venitar.entity.Users;
 import com.mixapp.venitar.exception.InvalidLoginException;
 import com.mixapp.venitar.exception.InvalidUsersException;
+import com.mixapp.venitar.models.FileUpload;
 import com.mixapp.venitar.service.LoginService;
 import com.mixapp.venitar.service.MixesUploadService;
 import com.mixapp.venitar.service.UsersService;
 import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.annotation.MultipartConfig;
+import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -66,7 +71,7 @@ public class KventController {
  @PostMapping("/login")
  Login loginUser(@RequestParam(name="username") String username,
                  @RequestParam(name = "password") String password) throws InvalidLoginException{
-  return loginService.loginUsers(username, password);
+   return loginService.loginUsers(username, password);
  }
 
  @GetMapping("/getMixById")
@@ -74,14 +79,19 @@ public class KventController {
  return mixesUploadService.getMixUpload(mixId);
  }
 
+ @PostMapping(value = "/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+ FileUpload uploadFile(@RequestPart(name = "file") MultipartFile file, @RequestParam  Long userID) throws IOException{
+   return mixesUploadService.upload(file, userID);
+ }
+
  @PostMapping("/addMix")
- MixesUpload addMix(@RequestBody MixesUpload mix, MultipartFile file) throws IOException{
-   return mixesUploadService.uploadMix(mix, file);
+ MixesUpload addMix(@RequestBody MixesUpload mixesUpload) {
+   return mixesUploadService.addMix(mixesUpload);
  }
 
  @PutMapping("/updateMix")
  MixesUpload updateMix(@RequestBody MixesUpload mix) {
- return mixesUploadService.updateMixUpload(mix);
+   return mixesUploadService.updateMixUpload(mix);
  }
 
  @DeleteMapping("/delMix")

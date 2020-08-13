@@ -28,8 +28,8 @@ export class HeaderComponent implements OnInit {
 
 
   user: User = <User> {country: {},  county: {},  ward: {},  town: {},  credentials: {}}
-
-
+  title;
+  subtitle;
   // checkToken(token: String): boolean {
   //
   // }
@@ -71,6 +71,7 @@ export class HeaderComponent implements OnInit {
     this.picHardLink = 'assets/TempContent/Pictures/Logo1.png';
     // tslint:disable-next-line:no-unused-expression
     this._loginState ? this.getUserDetails(this._loginId) : null;
+    this.title = this.headerService.getTitle();
     this.headerService.setUserDetails(this.user);
   }
 
@@ -93,6 +94,10 @@ export class HeaderComponent implements OnInit {
 
   logoutUser() {
     this.acs.logout();
-    this.router.navigate(['home']).then(() => {window.location.reload();});
+    this.router.navigate(['home']).then(() => {window.location.reload(); });
+  }
+
+  getTitle() {
+    return this.headerService.getTitle();
   }
 }

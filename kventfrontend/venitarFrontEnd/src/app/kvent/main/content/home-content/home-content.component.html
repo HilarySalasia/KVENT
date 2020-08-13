@@ -4,7 +4,7 @@
     <div class ="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center
         d-md-inline-flex d-lg-inline-flex mt-4 " *ngFor="let mix of qMixes">
         <div  width="100%" height="45%">
-          <img [src]="picHardLink + mix.picture.picLink"  width="100%" height="100%"/>
+          <img [src]="sanitzer.bypassSecurityTrustResourceUrl(picHardLink + mix.picture.picLink)"  width="100%" height="100%"/>
         </div>
         <div id="mixDetails" class="row" >
         <div id="mixTitle" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex">
@@ -16,7 +16,8 @@
             <span class="ml-2">{{mix.mixCompany || "Missing Company"}}</span>
         </div>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <app-audio-component *ngIf="mixPlayId === mix.mixId" [fileUrl]="musicHardLink + mix.mixLink"
+            <app-audio-component *ngIf="mixPlayId === mix.mixId"
+                                 [fileUrl]="musicHardLink + mix.mixLink"
                                  filePlay="{{playFile}}" onStopTracks = "{{stopAudio}}" (response)="
                                  checkResponse($event)"></app-audio-component>
           </div>

@@ -2,6 +2,13 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@an
 import {MainService} from '../../services/main-service.service';
 import {Mixes} from '../../models/mixes';
 import {faDownload, faPlayCircle} from '@fortawesome/free-solid-svg-icons';
+import {mergeMap} from 'rxjs/operators';
+import {forkJoin, of} from 'rxjs';
+// @ts-ignore
+import KventConfig from '../../../../../assets/kventConfig.json';
+import {DomSanitizer} from '@angular/platform-browser';
+import {HeaderService} from '../../header/header.service';
+
 
 @Component({
   selector: 'app-home-content',
@@ -26,16 +33,26 @@ public faDownload = faDownload;
   disbPlay: boolean = false;
 
   constructor(private mainService: MainService,
-              private _cdr: ChangeDetectorRef) {
+              private _cdr: ChangeDetectorRef,
+              private sanitzer: DomSanitizer,
+              private headerService: HeaderService) {
   }
 
   ngOnInit() {
-    this.picHardLink = 'assets/TempContent/Pictures/';
-    this.musicHardLink = 'assets/TempContent/Music/';
+
     this.mainService.getAllMixes()
-      .subscribe( mix => {
-                  this.qMixes = mix;
-                  this._cdr.detectChanges();
+      .pipe(
+        mergeMap( mixes => {
+          const configSett$ = this.mainService.configSetting();
+          return forkJoin(of(mixes), configSett$);
+        })
+      )
+      .subscribe( ([mix, configSettings]) => {
+        this.picHardLink = KventConfig.hardLink;
+        this.musicHardLink = KventConfig.hardLink;
+        this.qMixes = mix;
+        this._cdr.detectChanges();
+        this.headerService.setTitle('Music Section');
         console.log('Miix: ', mix, 'Link: ', this.qMixes[0].picture.picLink);
     });
   }

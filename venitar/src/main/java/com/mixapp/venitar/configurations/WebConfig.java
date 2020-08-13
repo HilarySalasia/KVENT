@@ -3,6 +3,8 @@ package com.mixapp.venitar.configurations;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.resource.PathResourceResolver;
@@ -42,4 +44,11 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**");
     }
 
+//    @Bean
+//    public MultipartResolver multipartResolver() {
+//        CommonsMultipartResolver multipartResolver
+//                = new CommonsMultipartResolver();
+//        multipartResolver.setMaxUploadSize(1000000000);
+//        return multipartResolver;
+//    }
 }

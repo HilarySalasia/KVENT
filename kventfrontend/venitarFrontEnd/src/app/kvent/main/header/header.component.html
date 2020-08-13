@@ -10,7 +10,8 @@
   <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
     <div class="row">
       <div class="col-md-6 col-lg-6">
-
+        <div class="row justify-content-center"><h1>{{getTitle()}}</h1></div>
+        <div class="row justify-content-center"><h3>{{subtitle}}</h3></div>
       </div>
       <div class="col-md-6 col-lg-6">
         <div  class="row border float-md-right float-lg-right">
@@ -26,12 +27,12 @@
                 <div class="row">
                   <div class="col-md-12 col-lg-12">
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <button  (click)="accessProcedure('login')" *ngIf="!loginState">
                           <span>Login</span></button>
                         <span *ngIf="loginState">{{user.firstName === null ? 'Loading..' : user.firstName}}</span>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <button  (click)="accessProcedure('signup')" *ngIf="!loginState">
                           <span>Sign Up</span></button>
 
@@ -40,6 +41,14 @@
                       </div>
                     </div>
                   </div>
+<!--                  <div class="row">-->
+<!--                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
+<!--                      <app-audio-component *ngIf="mixPlayId === mix.mixId"-->
+<!--                                           [fileUrl]="musicHardLink + mix.mixLink"-->
+<!--                                           filePlay="{{playFile}}" onStopTracks = "{{stopAudio}}" (response)="-->
+<!--                                 checkResponse($event)"></app-audio-component>-->
+<!--                    </div>-->
+<!--                  </div>-->
                 </div>
               </div>
             </div>

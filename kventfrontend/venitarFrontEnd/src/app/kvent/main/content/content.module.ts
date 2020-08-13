@@ -23,27 +23,30 @@ import {SitesessionServiceService} from '../services/sitesession-service.service
 
 
 @NgModule({
-  declarations: [
-    EventsContentComponent,
-    HomeContentComponent,
-    PicturesContentComponent,
-    VideosContentComponent,
-    UploadMixComponent,
-    UploadPicturesComponent,
-    UploadVideosComponent,
-    AudioComponent,
-    AuthenticationContentComponent,
-    CreateEventContentComponent,
-  ],
+    declarations: [
+        EventsContentComponent,
+        HomeContentComponent,
+        PicturesContentComponent,
+        VideosContentComponent,
+        UploadMixComponent,
+        UploadPicturesComponent,
+        UploadVideosComponent,
+        AudioComponent,
+        AuthenticationContentComponent,
+        CreateEventContentComponent,
+    ],
 
-  providers: [AuthenticationContentService, SitesessionServiceService],
-  imports: [
-    CommonModule,
-    ContentRoutingModule,
-    FontAwesomeModule,
-    FormsModule,
-    SharedModule
-  ],
-  // bootstrap: [AppModule]
+    providers: [AuthenticationContentService, SitesessionServiceService],
+    imports: [
+        CommonModule,
+        ContentRoutingModule,
+        FontAwesomeModule,
+        FormsModule,
+        SharedModule
+    ],
+    exports: [
+        AudioComponent
+    ],
+    // bootstrap: [AppModule]
 })
 export class ContentModule { }

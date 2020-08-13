@@ -62,6 +62,7 @@ export class CreateEventContentComponent implements OnInit {
     this.userId = this.ssS.getUserId();
     this.apiKey = this.googleService.gcdKey;
     this.event2Create.userId = this.userId;
+    this.headerService.setTitle('Create Event');
     this.getUserDetails();
   }
 

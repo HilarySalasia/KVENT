@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import * as $ from 'jquery';
-import {faStopCircle} from '@fortawesome/free-solid-svg-icons';
+import {faStopCircle, faVolumeOff, faVolumeUp} from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -20,6 +20,9 @@ export class AudioComponent implements OnInit {
   audioDur;
   curDur;
   public faStopCircle = faStopCircle;
+  public faVolume = faVolumeUp;
+  public faVolOff = faVolumeOff;
+  chckVol: boolean;
   get filePlay() {
     return this._filePlay;
   }
@@ -38,6 +41,7 @@ export class AudioComponent implements OnInit {
   ngOnInit(): void {
     this.onStopTracks && this.audioPlayer ? this.onStopAudio() : this.prepareFileToPlay();
     this.onStopTracks = false;
+    this.chckVol = true;
     console.log('Duration: ', this.audioPlayer.duration);
     // this.fileUpload ? this.onPlay(this.fileUpload) : this.onPause();
     this._cdr.detectChanges();
@@ -90,11 +94,15 @@ export class AudioComponent implements OnInit {
     this.audioPlayer.currentTime = $event.target.valueAsNumber;
     this._cdr.detectChanges();
   }
+
   updateSlider() {
     this.audioPlayer.addEventListener('timeupdate', () => {
       const curTime = parseInt(this.audioPlayer.currentTime, 10);
       this.curDur = curTime;
       console.log('UpdateTime: ', this.curDur);
+      if (curTime === parseInt(this.audioPlayer.duration, 10)) {
+        this.response.emit('Stopped');
+      }
       this._cdr.detectChanges();
     });
   }
@@ -109,5 +117,23 @@ export class AudioComponent implements OnInit {
 
   onStopChange() {
     this.onStopAudio();
+  }
+
+  onVolumeUp() {
+
+  }
+
+  onVolumeDown() {
+
+  }
+
+  onMute() {
+    if (this.chckVol) {
+      this.chckVol = false;
+      this.audioPlayer.muted = true;
+    } else if (!this.chckVol) {
+      this.chckVol = true;
+      this.audioPlayer.muted = false;
+    }
   }
 }

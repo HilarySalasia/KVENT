@@ -9,4 +9,5 @@ export interface Mixes {
   mixLink: string;
   mixStatus: string;
   mixTitle: string;
+  userId: number;
 }

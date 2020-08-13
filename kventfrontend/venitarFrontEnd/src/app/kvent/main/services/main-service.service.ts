@@ -11,6 +11,8 @@ import {Ward} from '../models/ward';
 import {Town} from '../models/town';
 import {User} from '../models/user';
 import {Login} from '../models/login';
+import {FileUpload} from '../models/fileUpload';
+import {ConfigSettings} from '../models/configSettings';
 
 @Injectable()
 export class MainService {
@@ -19,8 +21,13 @@ export class MainService {
       'Content-Type':  'application/json',
       'Authorization': 'my-auth-token',
     });
+  public httpUploadOptions =  new HttpHeaders({
+      // 'Content-Type': 'multipart/form-data; boundary=KventUpload',
+      'Authorization': 'my-auth-token',
+    });
+
   constructor(private http: HttpClient) {
-    console.log('HttpReq: ', this.http);
+
   }
 
   public getAllMixes(): Observable<Mixes[]> {
@@ -36,8 +43,19 @@ export class MainService {
     return this.http.get<Company[]>(this.baseURL + '/Kvent/setup/getCompanies', {headers: this.httpOptions});
   }
 
+  public uploadFile(mixFile: File, userId: number): Observable<FileUpload> {
+    const formData = new FormData();
+    formData.append('file', mixFile)
+    formData.append('userID', userId.toString());
+    // const params = new HttpParams();
+    // params.append('userID', userId.toString())
+    return this.http.post<FileUpload>(this.baseURL + '/Kvent/api/upload', formData,
+      {headers: this.httpUploadOptions});
+  }
+
   public addMix(mix: Mixes): Observable<Mixes> {
-    return this.http.post<Mixes>(this.baseURL + '/Kvent/api/addMix', mix, {headers: this.httpOptions});
+    return this.http.post<Mixes>(this.baseURL + '/Kvent/api/addMix', mix,
+      {headers: this.httpOptions});
   }
 
   public addUser(user: User): Observable<User> {
@@ -48,14 +66,11 @@ export class MainService {
     const params = new HttpParams()
           .set('username', username)
           .set('password', password);
-    // const body = new HttpParams({
-    //   fromObject: {
-    //     'password': password,
-    //     'username': username
-    //   }
-    // });
-    console.log('params: ', params);
     return this.http.post<Login>(this.baseURL + '/Kvent/api/login', null,
       {headers: this.httpOptions, params: params});
+  }
+
+  public configSetting(): Observable<ConfigSettings> {
+    return this.http.get<ConfigSettings>('./assets/kventConfig.json');
   }
 }

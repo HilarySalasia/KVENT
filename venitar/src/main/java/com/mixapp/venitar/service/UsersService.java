@@ -34,12 +34,16 @@ public class UsersService {
             usersRepository.save(user);
             Users saved = usersRepository.findUsersByEmail(user.getEmail());
             saved.setFolderLink("/temp/user/" + saved.getUserCode());
-            FileUtils.forceMkdir(new java.io.File("." + saved.getFolderLink()));
+            createFolderLink(saved.getFolderLink());
             return editUsers(saved);
         } else {
             throw new InvalidUsersException(invalidUsersException.getDupUser());
         }
 
+    }
+
+    public void createFolderLink(String folderLink) throws IOException {
+        FileUtils.forceMkdir(new java.io.File("." + folderLink));
     }
 
     public List<Users> findAllUsers() {

@@ -8,6 +8,10 @@ import {Router} from '@angular/router';
 import {Picture} from '../../models/picture';
 import {HeaderComponent} from '../../header/header.component';
 import {SitesessionServiceService} from '../../services/sitesession-service.service';
+import {mergeMap} from 'rxjs/operators';
+import {forkJoin, of, pipe} from 'rxjs';
+import {FileUpload} from '../../models/fileUpload';
+import {HeaderService} from '../../header/header.service';
 
 @Component({
   selector: 'app-upload-mix',
@@ -19,12 +23,20 @@ export class UploadMixComponent implements OnInit {
     companies: Company[];
     mix: Mixes = <Mixes> {mixCompany: {}, picture: {}};
     userID: number;
+    mixFile: File;
+    lgnError: string;
+    picId: number;
+    allowPicUpload: boolean =  false;
+    fileUploaded: FileUpload;
   constructor(private mainService: MainService,
               private router: Router,
-              private ssS: SitesessionServiceService) { }
+              private ssS: SitesessionServiceService,
+              private headerService: HeaderService) { }
   public faCheckCircle = faCheckCircle;
   ngOnInit() {
+    this.lgnError = 'Please Login to continue';
     this.userID = this.ssS.getUserId();
+    this.headerService.setTitle('Upload Music');
     this.load();
   }
 
@@ -34,25 +46,51 @@ export class UploadMixComponent implements OnInit {
   }
 
   onChangeFile(event: any) {
-    this.mix.mixLink = event.target.files[0].name;
+    this.mixFile = event.target.files[0];
     console.log('File: ', event);
   }
 
   onUpload() {
-    if (this.mix.picture.picLink) {
-      this.mainService.addMix(this.mix)
-        .subscribe( mix => {
-          console.log('Data Uploaded');
-          // this.router.navigate(['upload/picture']).then( );
-        });
-    } else {
-      console.log('Mix: ', this.mix);
-    }
+    this.mainService.uploadFile(this.mixFile, this.userID)
+      .pipe(
+        mergeMap(upload => {
+          this.allowPicUpload = true;
+          return of(upload);
+        })
+      )
+      .subscribe( (fileUploaded) => {
+        this.fileUploaded = fileUploaded;
+        console.log('File Uploaded');
+      });
+    // if (this.mix.picture.picLink) {
+    //   this.mainService.addMix(this.mix)
+    //     .subscribe( mix => {
+    //       console.log('Data Uploaded');
+    //       // this.router.navigate(['upload/picture']).then( );
+    //     });
+    // } else {
+    //   console.log('Mix: ', this.mix);
+    // }
   }
 
+  onAddMix(uploadedMsg: FileUpload) {
+    this.mix.userId = this.userID;
+    this.mix.mixLink = uploadedMsg.fileLink;
+    this.mainService.addMix(this.mix)
+      .subscribe( mix => {
+        console.log('Mix Uploaded!!');
+        });
+  }
 
   getPicture($event: Picture) {
     this.mix.picture = $event;
     console.log('Picture: ', this.mix.picture);
+  }
+
+  getPicId(picId: number) {
+    this.mix.picture.picId = this.picId;
+    if (this.fileUploaded != null && picId != null) {
+      this.onAddMix(this.fileUploaded);
+    }
   }
 }

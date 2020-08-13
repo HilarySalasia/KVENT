@@ -2,11 +2,15 @@ package com.mixapp.venitar.service;
 
 import com.mixapp.venitar.entity.MixesUpload;
 import com.mixapp.venitar.entity.Users;
+import com.mixapp.venitar.models.FileUpload;
 import com.mixapp.venitar.repository.MixesUploadRepository;
+import lombok.val;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,15 +25,40 @@ public class MixesUploadService {
 
 
 
-    public MixesUpload uploadMix(MixesUpload mixesUpload, MultipartFile file) throws IOException {
-        Users user = usersService.findUser(mixesUpload.getUserId());
+    public FileUpload upload(MultipartFile file, Long userId) throws IOException {
+        checkSavedFolder(userId);
+        Users user = usersService.findUser(userId);
         String folderLink = user.getFolderLink();
         // Get the file and save it somewhere
         byte[] bytes = file.getBytes();
-        mixesUpload.setMixLink(folderLink + "/" + file.getOriginalFilename());
-        Path path = Paths.get("." + mixesUpload.getMixLink());
+        String mixLink = (folderLink + "/" + file.getOriginalFilename());
+        Path path = Paths.get("." + mixLink);
         Files.write(path, bytes);
-        return mixesUploadRepository.saveAndFlush(mixesUpload);
+        FileUpload fileUpload = new FileUpload();
+        fileUpload.setUserId(userId);
+        fileUpload.setFileLink(mixLink);
+        fileUpload.setMessage("Upload Successful!!");
+        System.out.println("File Name: " + file.getOriginalFilename());
+        return fileUpload;
+    }
+
+    public void checkSavedFolder(Long userId) throws IOException {
+        Users chckUser = usersService.findUser(userId);
+        String Link = chckUser.getFolderLink();
+        if (Link == null || !checkFolderLink(Link)) {
+            val addFolder = ("/temp/user/" + userId);
+            chckUser.setFolderLink(addFolder);
+            usersService.createFolderLink(addFolder);
+            usersService.editUsers(chckUser);
+        }
+    }
+
+    public boolean checkFolderLink(String folderLink) throws IOException {
+        return FileUtils.isSymlink(new java.io.File("." + folderLink));
+    }
+
+    public MixesUpload addMix(MixesUpload mixesUpload) {
+        return mixesUploadRepository.save(mixesUpload);
     }
 
     public List<MixesUpload> uploadMixes(List<MixesUpload> mixesUploads){
