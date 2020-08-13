@@ -27,7 +27,7 @@
 Current thread (0x00000000151de800):  JavaThread "C2 CompilerThread0" daemon [_thread_in_native, id=11888, stack(0x0000000016840000,0x0000000016940000)]
 
 Stack: [0x0000000016840000,0x0000000016940000]
-[error occurred during error reporting (printing stack bounds), id 0xc0000005]
+[ventError occurred during ventError reporting (printing stack bounds), id 0xc0000005]
 
 Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
 

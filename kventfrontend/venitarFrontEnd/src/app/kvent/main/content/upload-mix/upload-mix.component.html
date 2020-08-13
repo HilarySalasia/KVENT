@@ -1,0 +1,45 @@
+<div xmlns="http://www.w3.org/1999/html">
+  <div>
+    <form ngNativeValidate #mixForm>
+      <div>
+        <label for="mix_title">Mix Title<span class="starReq">*</span></label>
+        <input id="mix_title" name="mix_title" class="form-control" [(ngModel)]="mix.mixTitle" required>
+
+      </div>
+      <div>
+        <label for="mix_company">Company<span class="starReq">*</span></label>
+        <select id="mix_company" name="mix_company" class="form-control" [(ngModel)]="mix.mixCompany.companyId"
+                required>
+          <option [disabled]="true">Select A Company</option>
+          <option  *ngFor="let company of companies" [value] = company.companyId>
+            {{company.companyName}}</option>
+        </select>
+      </div>
+
+      <br/>
+      <hr/>
+      <div>
+        <span class="starReq h3">Upload Mix</span>
+        <input type="file" class="form-control-file" (change)="onChangeFile($event)" required/>
+
+      </div>
+      <app-upload-pictures (pictureFile)="getPicture($event)"></app-upload-pictures>
+      <div>
+
+        <button type="submit" class="btn-lg bg-success h3"
+                (click)="mixForm.checkValidity() && userID ? onUpload() : null">
+          Upload</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!--+-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;+-&#45;&#45;&#45;&#45;+-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;+-->
+<!--| mix_id          | bigint(20)   | NO   | PRI | NULL    | auto_increment |-->
+<!--| mix_dj_name     | varchar(255) | YES  |     | NULL    |                |-->
+<!--| mix_link        | varchar(255) | YES  |     | NULL    |                |-->
+<!--| mix_status      | varchar(255) | YES  |     | NULL    |                |-->
+<!--| mix_title       | varchar(255) | YES  |     | NULL    |                |-->
+<!--| mix_cover_id    | bigint(20)   | YES  | MUL | NULL    |                |-->
+<!--| mix_companyID   | int(11)      | YES  | MUL | NULL    |                |-->
+<!--| mix_mia_type    | int(15)      | YES  | MUL | NULL    |                |-->
+<!--| mix_upload_date |-->

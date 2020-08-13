@@ -1,6 +1,7 @@
 package com.mixapp.venitar.service;
 
 import com.mixapp.venitar.entity.Ward;
+import com.mixapp.venitar.exception.InvalidWardException;
 import com.mixapp.venitar.repository.WardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,36 +10,43 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public class WardService {
-
+    @Autowired
     private WardRepository wardRepository;
+    private InvalidWardException invalidWardException;
 
 
-
-    List<Ward> getWards(){
+    public List<Ward> getWards(){
         return wardRepository.findAll();
     }
 
-    Ward getWard(Long id){
+    public Ward getWard(Long id){
         return wardRepository.getOne(id);
     }
 
-    Ward updateWard(Ward ward) {
-        Ward wardRow = wardRepository.getOne(ward.getWardId());
-
-        return wardRow != null ? wardRepository.saveAndFlush(ward) : null;
+    public Boolean checkWard(Long id) {
+        return wardRepository.existsById(id);
     }
 
-    Ward addWard(Ward ward) {
+    public Ward updateWard(Ward ward) throws InvalidWardException{
+
+        if (checkWard(ward.getWardId())) {
+            return wardRepository.saveAndFlush(ward);
+        } else {
+            throw new InvalidWardException(invalidWardException.invalidWard);
+        }
+    }
+
+    public Ward addWard(Ward ward) {
         return wardRepository.saveAndFlush(ward);
     }
 
-    String deleteWard(Long id) {
-        Ward fetchWard = getWard(id);
-        if(fetchWard != null) {
+    public List<Ward> findWardByName(String wardName) {
+        return wardRepository.findWardByName(wardName);
+    }
+
+    public void deleteWard(Long id) {
+        if (checkWard(id)) {
             wardRepository.deleteById(id);
-            return "Successfully Deleted Ward!!";
-        } else {
-            return "Ward to Delete wasn't Found!";
         }
     }
 }

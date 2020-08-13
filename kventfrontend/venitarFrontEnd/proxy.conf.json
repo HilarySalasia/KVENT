@@ -1,0 +1,6 @@
+{
+  "/Kvent": {
+    "target": "http://localhost:8082",
+    "secure": true,
+    "changeOrigin": true}
+}

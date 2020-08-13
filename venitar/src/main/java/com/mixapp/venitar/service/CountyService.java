@@ -1,6 +1,7 @@
 package com.mixapp.venitar.service;
 
 import com.mixapp.venitar.entity.County;
+import com.mixapp.venitar.exception.InvalidCountyException;
 import com.mixapp.venitar.repository.CountyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,32 +10,43 @@ import java.util.List;
 
 @Service
 public class CountyService {
-
+    @Autowired
     private CountyRepository countyRepository;
+    private InvalidCountyException invalidCountyException;
 
 
-
-    List<County> getAllCounties(){
+    public List<County> getCounties(){
         List<County> counties = countyRepository.findAll();
         return counties;
     }
 
-    County getCounty(Long countyId){
+    public County getCounty(Long countyId){
         County county = countyRepository.getOne(countyId);
         return county;
     }
 
-    County saveCounty(County county){
+    public Boolean checkCounty(Long countyId) {
+        return countyRepository.existsById(countyId);
+    }
+
+    public County saveCounty(County county){
         return countyRepository.saveAndFlush(county);
     }
 
-    List<County> saveCounties(List<County> counties){
+    public List<County> saveCounties(List<County> counties){
         List<County> savedCounties = countyRepository.saveAll(counties);
         return savedCounties;
     }
 
-    County updateCounty(County county){
-        County countyRow =countyRepository.getOne(county.getCountyId());
-        return countyRow != null ? countyRepository.saveAndFlush(county) : null;
+    public County updateCounty(County county) throws InvalidCountyException{
+        if (checkCounty(county.getCountyId())){
+            return countyRepository.saveAndFlush(county);
+        } else {
+            throw new InvalidCountyException(invalidCountyException.getInvalidCounty());
+        }
+    }
+
+    public void deleteCounty(Long countyId) {
+        countyRepository.deleteById(countyId);
     }
 }

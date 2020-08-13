@@ -12,7 +12,7 @@ import java.util.List;
 @Service
 public class MixPicUploadService {
 
-
+    @Autowired
     private MixPicUploadRepository mixPicUploadRepository;
 
     Page<MixPicUpload> getAllMixUpload(Pageable pageable){
@@ -45,6 +45,7 @@ public class MixPicUploadService {
     }
 
     MixPicUpload mixPicUpload(MixPicUpload mixPicUpload) {
+
         return mixPicUploadRepository.saveAndFlush(mixPicUpload);
     }
 }

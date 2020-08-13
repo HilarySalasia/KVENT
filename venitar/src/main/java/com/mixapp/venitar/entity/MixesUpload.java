@@ -1,5 +1,8 @@
 package com.mixapp.venitar.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,9 +12,6 @@ public class MixesUpload {
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="mix_id")
     private Long mixId;
-
-    @Column(name="mix_company")
-    private String mixCompany;
 
     @Column(name="mix_dj_name")
     private String mixDjName;
@@ -25,6 +25,16 @@ public class MixesUpload {
     @Column(name="mix_title")
     private String mixTitle;
 
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "mix_companyID", nullable = false)
+    private Company company;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "mix_cover_id", nullable = false)
+    private Picture picture;
+
+    @Column(name = "mix_user_id", nullable = false)
+    private Long userId;
 
     //Getter and Setters
     public Long getMixId() {
@@ -33,14 +43,6 @@ public class MixesUpload {
 
     public void setMixId(Long mixId) {
         this.mixId = mixId;
-    }
-
-    public String getMixCompany() {
-        return mixCompany;
-    }
-
-    public void setMixCompany(String mixCompany) {
-        this.mixCompany = mixCompany;
     }
 
     public String getMixDjName() {
@@ -75,4 +77,27 @@ public class MixesUpload {
         this.mixTitle = mixTitle;
     }
 
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 }
