@@ -1,0 +1,5 @@
+{
+  "hardLink": "./assets",
+  "Apihost": "localhost",
+  "Apiport": "8082"
+}

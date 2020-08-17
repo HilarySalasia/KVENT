@@ -1,0 +1,25 @@
+<div class="col-xl-12 col-sm-12 col-md-12 col-lg-12">
+  <div class="row">
+    <div class="col-md-10 sliderContainer">
+      <div class="row">
+        <div class="col-xl-6 col-sm-6 col-md-6 col-lg-6">
+          <span class="float-left">{{calcDuration(curDur)}}</span>
+        </div>
+        <div class="col-xl-6 col-sm-6 col-md-6 col-lg-6">
+          <h6><span class="float-right">{{songDur}}</span></h6>
+        </div>
+      </div>
+      <input class="row" id="{{fileUrl}}"  type="range" class="custom-range" class="slider"
+               [max]="audioDur" [value]="curDur" (change)="onSliderChange($event)" >
+    </div>
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+      <span class="text-dark mr-2"><fa-icon [icon]="faStopCircle" (click)="onStopChange()"></fa-icon></span>
+    </div>
+    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+      <span class="text-dark mr-2" *ngIf="chckVol"><fa-icon [icon]="faVolume" (click)="onMute()"></fa-icon></span>
+      <span class="text-dark mr-2" *ngIf="!chckVol"><fa-icon [icon]="faVolOff" (click)="onMute()"></fa-icon></span>
+    </div>
+  </div>
+
+</div>
+

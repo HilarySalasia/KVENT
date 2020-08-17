@@ -2,10 +2,12 @@ package com.kvent.web.service;
 
 import com.kvent.web.entity.Ward;
 import com.kvent.web.repository.WardRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class WardService {
+    @Autowired
     private final WardRepository wardRepository;
 
     public WardService(WardRepository wardRepository) {
@@ -21,19 +23,19 @@ public class WardService {
     }
 
     Ward updateWard(Ward ward) {
-        Ward wardRow = getWard(ward.getWardId());
-        wardRow.setWardName(ward.getWardName());
-        return wardRow;
+        Ward wardRow = wardRepository.getOne(ward.getWardId());
+
+        return wardRow != null ? wardRepository.saveAndFlush(ward) : null;
     }
 
     Ward addWard(Ward ward) {
-        return wardRepository.save(ward);
+        return wardRepository.saveAndFlush(ward);
     }
 
     String deleteWard(Long id) {
         Ward fetchWard = getWard(id);
         if(fetchWard != null) {
-            wardRepository.deleteById(id);
+            wardRepository.delete(id);
             return "Successfully Deleted Ward!!";
         } else {
             return "Ward to Delete wasn't Found!";

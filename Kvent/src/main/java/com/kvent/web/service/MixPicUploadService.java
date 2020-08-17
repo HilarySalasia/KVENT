@@ -2,14 +2,15 @@ package com.kvent.web.service;
 
 import com.kvent.web.entity.MixPicUpload;
 import com.kvent.web.repository.MixPicUploadRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-
 import java.util.List;
 
 public class MixPicUploadService {
+    @Autowired
     private final MixPicUploadRepository mixPicUploadRepository;
     private final Pageable pageable;
 
@@ -29,19 +30,14 @@ public class MixPicUploadService {
     }
 
     MixPicUpload updateMix(MixPicUpload mixPicUpload) {
-        MixPicUpload mix = mixPicUploadRepository.getOne(mixPicUpload.getMixPicId());
-        mix.setMixPicArtist(mixPicUpload.getMixPicArtist());
-        mix.setMixPicLink(mixPicUpload.getMixPicLink());
-        mix.setMixPicPermit(mixPicUpload.getMixPicPermit());
-        mix.setMixPicName(mixPicUpload.getMixPicName());
-
-        return mixPicUploadRepository.save(mix);
+        MixPicUpload mixesUploadDb = mixPicUploadRepository.getOne(mixPicUpload.getMixPicId());
+        return mixesUploadDb != null ? mixPicUploadRepository.saveAndFlush(mixPicUpload) : null;
     }
 
     String deleteMix(Long mixId) {
         MixPicUpload mixPicUpload = mixPicUploadRepository.getOne(mixId);
         if (mixPicUpload != null) {
-            mixPicUploadRepository.deleteById(mixId);
+            mixPicUploadRepository.delete(mixId);
             return "Mix Removed";
         } else {
             return "Mix Not Found";
@@ -50,5 +46,9 @@ public class MixPicUploadService {
 
     List<MixPicUpload> MixesPermPics(String param) {
         return mixPicUploadRepository.getPermittedMixPics(param);
+    }
+
+    MixPicUpload mixPicUpload(MixPicUpload mixPicUpload) {
+        return mixPicUploadRepository.saveAndFlush(mixPicUpload);
     }
 }
