@@ -35,11 +35,12 @@ public class LoginService {
             if(!checkUserLoggedIn(users.getUserCode())) {
                 if(users.getCredentials().getPassCode().equals(password)) {
                     Login login = new Login();
-                    byte[] array = new byte[32]; // length is bounded by 32
-                    new Random().nextBytes(array);
+                    RandomString randomString = new RandomString(32);
+//                    byte[] array = new byte[32]; // length is bounded by 32
+//                    new Random().nextBytes(array);
                     int i = 0;
                     while(i == 0) {
-                        generatedString = new String(array, StandardCharsets.UTF_8);
+                        generatedString = randomString.nextString();
                         if (checkToken(generatedString)) {
                             i = 0;
                         } else {
@@ -84,5 +85,10 @@ public class LoginService {
 
     public Boolean checkUserLoggedIn(Long loginUserId) {
         return  loginRepository.findTokenByUserId(loginUserId, "in") != null;
+    }
+
+    public Long getUserIDByToken(String token) {
+        System.out.println("this is the userID: " + loginRepository.getUserIdByToken(token));
+        return loginRepository.getUserIdByToken(token);
     }
 }

@@ -19,4 +19,7 @@ public interface LoginRepository extends JpaRepository<Login, Long> {
 
     @Query("select l from Login l where l.userId= ?1 and l.loginLoggedOut = ?2")
     Login findLoginByUserIdAndLoggedIn(Long loginUserId, String in);
+
+    @Query("select l.userId from Login l where l.loginToken = ?1")
+    Long getUserIdByToken(String token);
 }
