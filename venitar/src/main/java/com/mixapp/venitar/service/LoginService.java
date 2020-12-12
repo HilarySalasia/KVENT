@@ -88,7 +88,6 @@ public class LoginService {
     }
 
     public Long getUserIDByToken(String token) {
-        System.out.println("this is the userID: " + loginRepository.getUserIdByToken(token));
         return loginRepository.getUserIdByToken(token);
     }
 }

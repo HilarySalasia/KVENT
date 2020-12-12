@@ -38,7 +38,6 @@ public class MixesUploadService {
         fileUpload.setUserId(userId);
         fileUpload.setFileLink(mixLink);
         fileUpload.setMessage("Upload Successful!!");
-        System.out.println("File Name: " + file.getOriginalFilename());
         return fileUpload;
     }
 

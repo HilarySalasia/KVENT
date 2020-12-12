@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.Date;
+import java.util.List;
 
 public interface TransactionRepository  extends JpaRepository<Transaction, Long> {
     @Query("select t From Transaction t where t.transcDate = ?1")
@@ -21,4 +22,13 @@ public interface TransactionRepository  extends JpaRepository<Transaction, Long>
 
     @Query("select t from Transaction t where t.audioId = ?1 and t.transcDate = ?2")
     Transaction TransactionByAudioIdAndDate(Long audioId, Date transcDate);
+
+    @Query("select t.transcId from Transaction t where t.transcType = ?1 and t.userId = ?2")
+    List<Long> TransactionIdFromTransactionType(Long transcType, Long userId);
+
+    @Query("select t.transcRef from Transaction t where t.transcType = ?1 and t.userId = ?2")
+    List<Long> TransactionRefFromTransactionType(Long transcType, Long userId);
+
+    @Query("select t from Transaction t where t.transcTypeValue= ?1 and t.userId = ?2")
+    List<Long> TransactionValues(Long transcValue, Long userId);
 }

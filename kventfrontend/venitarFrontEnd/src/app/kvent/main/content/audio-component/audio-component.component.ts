@@ -1,6 +1,10 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import * as $ from 'jquery';
 import {faStopCircle, faVolumeOff, faVolumeUp} from '@fortawesome/free-solid-svg-icons';
+import {Transaction} from '../../models/transaction';
+import {SitesessionServiceService} from '../../services/sitesession-service.service';
+import {TransactionService} from '../../services/transaction.service';
+import {TransactService} from '../../services/transact.service';
 
 
 
@@ -23,6 +27,8 @@ export class AudioComponent implements OnInit {
   public faVolume = faVolumeUp;
   public faVolOff = faVolumeOff;
   chckVol: boolean;
+  transact: Transaction = <Transaction>{};
+  token: string;
   get filePlay() {
     return this._filePlay;
   }
@@ -32,13 +38,20 @@ export class AudioComponent implements OnInit {
   }
   @Input() fileUrl: string;
   @Input() onStopTracks: boolean;
+  @Input() audioId: number;
   @Output() response = new EventEmitter<string>();
+  date = new Date();
 
 
 
-  constructor(private _cdr: ChangeDetectorRef) { }
+  constructor(private _cdr: ChangeDetectorRef,
+              private ssS: SitesessionServiceService,
+              private transactService: TransactService) { }
 
   ngOnInit(): void {
+    const moment = require('moment');
+    this.transact.transcDate = moment(this.date, moment.ISO_8601);
+    console.log('Curr Date: ', this.transact.transcDate);
     this.onStopTracks && this.audioPlayer ? this.onStopAudio() : this.prepareFileToPlay();
     this.onStopTracks = false;
     this.chckVol = true;
@@ -63,6 +76,12 @@ export class AudioComponent implements OnInit {
      this.curDur = parseInt(this.audioPlayer.currentTime, 10);
      this.updateSlider();
      this.response.emit('Played');
+     console.log('thisUser: ', this.ssS.getUserId());
+     this.transact.userId = this.ssS.getUserId() != null ? this.ssS.getUserId() : 0;
+     this.transact.audioId = this.audioId;
+     this.transact.transcType = 1;
+     this.token = this.ssS.getUserId() ? this.ssS.getUserToken() : '';
+     this.transactService.playAudio(this.transact, this.token);
      this._cdr.detectChanges();
     }) : this.onPauseAudio();
 
@@ -71,12 +90,18 @@ export class AudioComponent implements OnInit {
   }
   onPauseAudio() {
     this.audioPlayer.pause();
+    this.transact.transcType = 3;
+    this.transact.transcTypeValue = this.curDur;
+    this.transactService.pauseAudio(this.transact, this.token);
     this._cdr.detectChanges();
   }
 
   onStopAudio() {
     console.log('Audio should stop');
     this.audioPlayer.pause();
+    this.transact.transcType = 4;
+    this.transact.transcTypeValue = this.curDur;
+    this.transactService.stopAudio(this.transact, this.token);
     console.log('Link: ', this.fileUrl, 'Not Stopping');
     this.response.emit('Stopped');
     this._cdr.detectChanges();

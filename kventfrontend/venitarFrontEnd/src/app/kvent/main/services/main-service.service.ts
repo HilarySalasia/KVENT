@@ -13,6 +13,8 @@ import {User} from '../models/user';
 import {Login} from '../models/login';
 import {FileUpload} from '../models/fileUpload';
 import {ConfigSettings} from '../models/configSettings';
+import {TransactionService} from './transaction.service';
+import {SitesessionServiceService} from './sitesession-service.service';
 
 @Injectable()
 export class MainService {

@@ -23,6 +23,8 @@ import {HeaderService} from './kvent/main/header/header.service';
 import {MainService} from './kvent/main/services/main-service.service';
 import {SetupService} from './kvent/main/services/setup.service';
 import {BusinessService} from './kvent/main/services/business.service';
+import {TransactionService} from './kvent/main/services/transaction.service';
+import {TransactService} from './kvent/main/services/transact.service';
 
 
 
@@ -48,7 +50,7 @@ import {BusinessService} from './kvent/main/services/business.service';
     SharedModule
   ],
     providers: [LoadingScreenService, SitesessionServiceService, GoogleService, HeaderService,
-      MainService, SetupService, BusinessService,
+      MainService, SetupService, BusinessService, TransactionService, TransactService,
         {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}
     ],
   exports: [],

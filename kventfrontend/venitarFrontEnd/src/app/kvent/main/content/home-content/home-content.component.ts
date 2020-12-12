@@ -8,6 +8,7 @@ import {forkJoin, of} from 'rxjs';
 import KventConfig from '../../../../../assets/kventConfig.json';
 import {DomSanitizer} from '@angular/platform-browser';
 import {HeaderService} from '../../header/header.service';
+import {TransactService} from '../../services/transact.service';
 
 
 @Component({
@@ -35,7 +36,8 @@ public faDownload = faDownload;
   constructor(private mainService: MainService,
               private _cdr: ChangeDetectorRef,
               private sanitzer: DomSanitizer,
-              private headerService: HeaderService) {
+              private headerService: HeaderService,
+              private trasactService: TransactService) {
   }
 
   ngOnInit() {
@@ -53,8 +55,13 @@ public faDownload = faDownload;
         this.qMixes = mix;
         this._cdr.detectChanges();
         this.headerService.setTitle('Music Section');
-        console.log('Miix: ', mix, 'Link: ', this.qMixes[0].picture.picLink);
+        // console.log('Miix: ', mix, 'Link: ', this.qMixes[0].picture.picLink);
+        this.onLoad();
     });
+  }
+  onLoad() {
+    //check for music Played and not stopped
+    this.trasactService.
   }
 
   onPlayChange(play: boolean, mix: Mixes) {

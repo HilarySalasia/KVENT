@@ -25,7 +25,6 @@ public class Transaction {
 
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @JsonFormat(pattern = "YYYY-MM-dd'T'HH:mm:ss.SSSZ")
     @Column(name="v_tranc_date")
     private Date transcDate;
 
@@ -34,6 +33,9 @@ public class Transaction {
 
     @Column(name="v_type_value")
     private Long transcTypeValue;
+
+    @Column(name="ref_tranc")
+    private Long transcRef;
 
     public Long getTranscId() {
         return transcId;
@@ -89,5 +91,13 @@ public class Transaction {
 
     public void setTranscTypeValue(Long transcTypeValue) {
         this.transcTypeValue = transcTypeValue;
+    }
+
+    public Long getTranscRef() {
+        return transcRef;
+    }
+
+    public void setTranscRef(Long transcRef) {
+        this.transcRef = transcRef;
     }
 }

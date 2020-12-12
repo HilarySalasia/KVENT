@@ -4,6 +4,7 @@ export class SitesessionServiceService {
   }
 
   getUserId(): number {
+    console.log('UserId: ', +localStorage.getItem('userID'));
     return +localStorage.getItem('userID');
   }
 
