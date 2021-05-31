@@ -39,7 +39,10 @@ export class AudioComponent implements OnInit {
   @Input() fileUrl: string;
   @Input() onStopTracks: boolean;
   @Input() audioId: number;
+  @Input() audioTime: number;
   @Output() response = new EventEmitter<string>();
+  @Output()
+  audioCurrTime = new EventEmitter<number>();
   date = new Date();
 
 
@@ -51,11 +54,11 @@ export class AudioComponent implements OnInit {
   ngOnInit(): void {
     const moment = require('moment');
     this.transact.transcDate = moment(this.date, moment.ISO_8601);
-    console.log('Curr Date: ', this.transact.transcDate);
+    // console.log('Curr Date: ', this.transact.transcDate);
     this.onStopTracks && this.audioPlayer ? this.onStopAudio() : this.prepareFileToPlay();
     this.onStopTracks = false;
     this.chckVol = true;
-    console.log('Duration: ', this.audioPlayer.duration);
+    // console.log('Duration: ', this.audioPlayer.duration);
     // this.fileUpload ? this.onPlay(this.fileUpload) : this.onPause();
     this._cdr.detectChanges();
   }
@@ -69,14 +72,15 @@ export class AudioComponent implements OnInit {
   }
 
   onPlay(playAudio: boolean) {
-    console.log('Current Duration: ', this.curDur);
+    // console.log('Current Duration: ', this.curDur);
     playAudio  ? this.audioPlayer.play().then(play => {
-      this.audioDur = this.audioPlayer.duration;
+     this.audioTime != null ? this.audioPlayer.currentTime = this.audioTime : this.audioPlayer.currentTime = 0 ;
+     this.audioDur = this.audioPlayer.duration;
      this.songDur = this.calcDuration(this.audioPlayer.duration);
      this.curDur = parseInt(this.audioPlayer.currentTime, 10);
      this.updateSlider();
      this.response.emit('Played');
-     console.log('thisUser: ', this.ssS.getUserId());
+     // console.log('thisUser: ', this.ssS.getUserId());
      this.transact.userId = this.ssS.getUserId() != null ? this.ssS.getUserId() : 0;
      this.transact.audioId = this.audioId;
      this.transact.transcType = 1;
@@ -85,7 +89,7 @@ export class AudioComponent implements OnInit {
      this._cdr.detectChanges();
     }) : this.onPauseAudio();
 
-    console.log('File is Playing 1');
+    // console.log('File is Playing 1');
 
   }
   onPauseAudio() {
@@ -97,12 +101,12 @@ export class AudioComponent implements OnInit {
   }
 
   onStopAudio() {
-    console.log('Audio should stop');
+    // console.log('Audio should stop');
     this.audioPlayer.pause();
     this.transact.transcType = 4;
     this.transact.transcTypeValue = this.curDur;
     this.transactService.stopAudio(this.transact, this.token);
-    console.log('Link: ', this.fileUrl, 'Not Stopping');
+    // console.log('Link: ', this.fileUrl, 'Not Stopping');
     this.response.emit('Stopped');
     this._cdr.detectChanges();
   }
@@ -115,7 +119,7 @@ export class AudioComponent implements OnInit {
   }
 
   onSliderChange($event: any) {
-    console.log('Slider: ', $event);
+    // console.log('Slider: ', $event);
     this.audioPlayer.currentTime = $event.target.valueAsNumber;
     this._cdr.detectChanges();
   }
@@ -124,16 +128,17 @@ export class AudioComponent implements OnInit {
     this.audioPlayer.addEventListener('timeupdate', () => {
       const curTime = parseInt(this.audioPlayer.currentTime, 10);
       this.curDur = curTime;
-      console.log('UpdateTime: ', this.curDur);
+      // console.log('UpdateTime: ', this.curDur);
       if (curTime === parseInt(this.audioPlayer.duration, 10)) {
         this.response.emit('Stopped');
       }
+      this.audioCurrTime.emit(this.audioPlayer.currentTime);
       this._cdr.detectChanges();
     });
   }
 
   updateValue() {
-    console.log('CurrTime: ', this.curDur);
+    // console.log('CurrTime: ', this.curDur);
     // const curTime = parseInt(this.aud  console.log('CurrTime: ', this.curDur);
     // const curTime = parseInt(this.audioPlayer.currentTime, 10);
     // $('#' + this.fileUrl).attr('value', curTime);

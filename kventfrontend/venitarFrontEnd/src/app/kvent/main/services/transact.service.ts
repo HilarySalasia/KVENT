@@ -24,7 +24,8 @@ export class TransactService {
   public playAudio(transc: Transaction, token: string) {
     this.transaction.makeTransaction(transc, token).subscribe(transcId => {
       this.audioTranscId = transcId;
-      console.log('transaction Code: ', transcId)});
+      // console.log('transaction Code: ', transcId);
+    });
   }
 
   public pauseAudio(transc: Transaction, token: string) {

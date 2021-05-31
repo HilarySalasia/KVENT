@@ -12,7 +12,7 @@ export class LoadingScreenService {
   hide() {
     setInterval(() => {
       this.isLoading.next(false);
-    }, 5000);
+    }, 35000);
   }
 
 }

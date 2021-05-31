@@ -13,6 +13,7 @@ import {Credentials} from '../models/credentials';
 import {AuthenticationContentService} from '../content/authentication-content/authentication-content.service';
 import {SitesessionServiceService} from '../services/sitesession-service.service';
 import {HeaderService} from './header.service';
+import {AudioDets} from '../models/audioDets';
 
 @Component({
   selector: 'app-header',
@@ -30,6 +31,7 @@ export class HeaderComponent implements OnInit {
   user: User = <User> {country: {},  county: {},  ward: {},  town: {},  credentials: {}}
   title;
   subtitle;
+  audioDetails: AudioDets = <AudioDets> {};
   // checkToken(token: String): boolean {
   //
   // }
@@ -72,6 +74,7 @@ export class HeaderComponent implements OnInit {
     // tslint:disable-next-line:no-unused-expression
     this._loginState ? this.getUserDetails(this._loginId) : null;
     this.title = this.headerService.getTitle();
+    this.getAudioDetails();
     this.headerService.setUserDetails(this.user);
   }
 
@@ -85,11 +88,13 @@ export class HeaderComponent implements OnInit {
   }
 
   getUserDetails(userId: number) {
-    this.mainService.getUserById(userId)
+    if (this.user === null) {
+      this.mainService.getUserById(userId)
       .subscribe(user => {
         this.user = user;
         this.headerService.setUserDetails(user);
       });
+    }
   }
 
   logoutUser() {
@@ -99,5 +104,23 @@ export class HeaderComponent implements OnInit {
 
   getTitle() {
     return this.headerService.getTitle();
+  }
+
+  checkResponse(value: string) {
+    if (value === 'Played') {
+      // this.disbPlay = true;
+    } else if (value === 'Stopped') {
+      // this.disbPlay = false;
+      this.audioDetails = null;
+    }
+    // this._cdr.detectChanges();
+  }
+
+  getAudioDetails() {
+    this.headerService.getAudioDetails().subscribe(details => {
+      if (this.audioDetails !== details) {
+        this.audioDetails = details;
+      }
+    });
   }
 }

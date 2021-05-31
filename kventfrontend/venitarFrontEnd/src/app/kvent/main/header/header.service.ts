@@ -2,6 +2,8 @@ import {HeaderComponent} from './header.component';
 import {Injectable} from '@angular/core';
 import {User} from '../models/user';
 import {Observable, of} from 'rxjs';
+import {AudioDets} from '../models/audioDets';
+import {share} from 'rxjs/operators';
 
 @Injectable()
 export class HeaderService {
@@ -9,6 +11,7 @@ export class HeaderService {
   state: boolean;
   sendTitle;
   sendSubTitle;
+  audioDetails: AudioDets = <AudioDets> {};
 
   get userDetails() {
     return this._userDetails;
@@ -22,12 +25,12 @@ export class HeaderService {
   }
 
   public getUserDetails(): Observable<User> {
-    console.log('userDets0: ', this.userDetails);
+    // console.log('userDets0: ', this.userDetails);
     return of(this.userDetails);
   }
 
   public setUserDetails(user: User) {
-    console.log('userDets: ', user);
+    // console.log('userDets: ', user);
     this.userDetails = user;
   }
 
@@ -45,5 +48,13 @@ export class HeaderService {
 
   public getSubTitle() {
     return this.sendSubTitle;
+  }
+
+  public setAudioDetails(audioDets: AudioDets) {
+    this.audioDetails = audioDets;
+  }
+
+  public getAudioDetails(): Observable<AudioDets> {
+    return of(this.audioDetails).pipe(share());
   }
 }

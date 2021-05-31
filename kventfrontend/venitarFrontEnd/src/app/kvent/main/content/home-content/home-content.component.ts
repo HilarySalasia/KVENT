@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {MainService} from '../../services/main-service.service';
 import {Mixes} from '../../models/mixes';
 import {faDownload, faPlayCircle} from '@fortawesome/free-solid-svg-icons';
@@ -9,6 +9,7 @@ import KventConfig from '../../../../../assets/kventConfig.json';
 import {DomSanitizer} from '@angular/platform-browser';
 import {HeaderService} from '../../header/header.service';
 import {TransactService} from '../../services/transact.service';
+import {AudioDets} from '../../models/audioDets';
 
 
 @Component({
@@ -18,7 +19,7 @@ import {TransactService} from '../../services/transact.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class HomeContentComponent implements OnInit {
+export class HomeContentComponent implements OnInit, OnDestroy {
 qMixes: Mixes[] = [];
 picHardLink;
 musicHardLink;
@@ -32,6 +33,8 @@ public faDownload = faDownload;
   mixPlayId: number;
   Lmix: Mixes;
   disbPlay: boolean = false;
+  audioDetails: AudioDets = <AudioDets>{};
+  audioCurrTime;
 
   constructor(private mainService: MainService,
               private _cdr: ChangeDetectorRef,
@@ -60,8 +63,7 @@ public faDownload = faDownload;
     });
   }
   onLoad() {
-    //check for music Played and not stopped
-    this.trasactService.
+    // check for music Played and not stopped
   }
 
   onPlayChange(play: boolean, mix: Mixes) {
@@ -70,8 +72,8 @@ public faDownload = faDownload;
     // this.stopAudio = false;
     this.mixPlayId = mix.mixId;
     this.n = 1;
-    console.log('File is Playing');
-    console.log(this.playFile);
+    /*console.log('File is Playing');
+    console.log(this.playFile);*/
     this._cdr.detectChanges();
   }
 
@@ -81,7 +83,7 @@ public faDownload = faDownload;
     this._cdr.detectChanges();
   }
 
-  checkResponse(value: string){
+  checkResponse(value: string) {
     if (value === 'Played') {
       this.disbPlay = true;
     } else if (value === 'Stopped') {
@@ -90,5 +92,21 @@ public faDownload = faDownload;
       this.playFile = false;
     }
     this._cdr.detectChanges();
+  }
+
+  checkAudioTime(value: number) {
+    this.audioCurrTime = value;
+  }
+  ngOnDestroy() {
+    if (this.disbPlay) {
+      // this.audioDetails.audioPermit = this.playFile;
+      // console.log('Play File', this.playFile);
+      this.audioDetails.audioLink = this.musicHardLink + this.mixPlayId;
+      this.audioDetails.audioCurrTime = this.audioCurrTime;
+      this.audioDetails.audioId = this.mixPlayId;
+      this.headerService.setAudioDetails(this.audioDetails);
+      this._cdr.detectChanges();
+      console.log('Leaving');
+    }
   }
 }
