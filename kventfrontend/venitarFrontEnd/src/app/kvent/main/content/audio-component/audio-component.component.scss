@@ -40,15 +40,15 @@ $sliderBackground: $colorBlack;
   cursor: pointer;
 }
 
-.slider::-moz-range-track {
-  width: $sliderWidth;
-  height: $sliderWidth;
-  cursor: pointer;
-  animate: 0.2s;
-  box-shadow: 1px 1px 1px #000000;
-  background: #74A9D8;
-  border-radius: 1px;
-  border: 0px solid #010101;
-}
+// .slider::-moz-range-track {
+//   width: $sliderWidth;
+//   height: $sliderWidth;
+//   cursor: pointer;
+//   animate: 0.2s;
+//   box-shadow: 1px 1px 1px #000000;
+//   background: #74A9D8;
+//   border-radius: 1px;
+//   border: 0px solid #010101;
+// }
 
 

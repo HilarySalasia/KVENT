@@ -1,33 +1,33 @@
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
   <div class="row">
 
-    <div class ="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-center
+    <div class ="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 text-center
         d-md-inline-flex d-lg-inline-flex mt-4 " *ngFor="let mix of qMixes">
         <div  width="100%" height="45%">
           <img [src]="sanitzer.bypassSecurityTrustResourceUrl(picHardLink + mix.picture.picLink)"  width="100%" height="100%"/>
         </div>
         <div id="mixDetails" class="row" >
-        <div id="mixTitle" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex">
+        <div id="mixTitle" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-inline-flex">
             <label>Title: </label>
           <span class="ml-2">{{mix.mixTitle}}</span>
           </div>
-          <div id="mixCompany" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex">
+          <div id="mixCompany" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-inline-flex">
             <label>Company: </label>
             <span class="ml-2">{{mix.mixCompany || "Missing Company"}}</span>
         </div>
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <app-audio-component *ngIf="mixPlayId === mix.mixId"
                                  [fileUrl]="musicHardLink + mix.mixLink"
                                  filePlay="{{playFile}}" onStopTracks = "{{stopAudio}}" audioId="{{mixPlayId}}"
                                  (response)="checkResponse($event)" (audioCurrTime)="checkAudioTime($event)"></app-audio-component>
           </div>
 
-          <div id="btnIcons" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 d-inline-flex ">
-            <button class="col-xs-6 col-sm-6 col-md-6 btn bg-success" [disabled]="disbPlay" (click)="onPlayChange(n==0, mix)">
+          <div id="btnIcons" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 d-inline-flex ">
+            <button class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 btn bg-success" [disabled]="disbPlay" (click)="onPlayChange(n==0, mix)">
               <span class="text-white mr-2"><fa-icon [icon]="faPlayCircle"></fa-icon></span>
               <span class="d-none d-sm-inline d-xs-inline text-white">PLAY</span>
             </button>
-            <button class="col-xs-6 col-sm-6 col-md-6 btn bg-info">
+            <button class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 btn bg-info">
               <span class="text-white mr-2"><fa-icon [icon]="faDownload"></fa-icon></span>
               <span class="d-none d-sm-inline d-xs-inline text-white">DOWNLOAD</span>
             </button>

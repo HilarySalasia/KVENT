@@ -10,25 +10,26 @@
 </head>
   <body>
     <div class="container-fluid">
-      <div id="header" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div id="header" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <app-header></app-header>
       </div>
-      <div id="navigation" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div id="navigation" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <app-navigation></app-navigation>
 
       </div>
-      <div id="content" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div id="content" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <router-outlet></router-outlet>
 
 
       </div>
-      <div id="expansion" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div id="expansion" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
        <app-expansion></app-expansion>
       </div>
-      <div id="footer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div id="footer" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
         <app-footer></app-footer>
-      </div>
-      <app-loading-screen></app-loading-screen>
+       </div>
+       <app-error-handling></app-error-handling>
+       <app-loading-screen></app-loading-screen>
     </div>
   </body>
 </html>

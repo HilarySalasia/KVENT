@@ -31,7 +31,10 @@
               "src/assets/bootstrap 4/css/bootstrap.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/Jquery.js",
+              "src/assets/bootstrap 4/js/bootstrap.min.js"
+              ]
           },
           "configurations": {
             "production": {

@@ -1,6 +1,6 @@
 {
   "/Kvent": {
-    "target": "http://localhost:8082",
+    "target": "192.168.0.100:8082",
     "secure": true,
     "changeOrigin": true}
 }

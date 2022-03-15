@@ -55,7 +55,6 @@ public class TransactionService {
     public List<Transaction> FindUnStoppedAudio(Long userId){
         List<Long> playedTransactionId = transactionRepository.TransactionIdFromTransactionType(1L, userId);
         List<Long> stoppedTransactionRef = transactionRepository.TransactionRefFromTransactionType(4L, userId);
-        Long[] transactionUnstoppedId;
         ArrayList<Long> ids = new ArrayList<>();
         for (int y = 0; y < stoppedTransactionRef.size(); y++) {
             for(int x = 0 ; x < playedTransactionId.size(); x++) {
@@ -67,17 +66,23 @@ public class TransactionService {
         }
         ArrayList<Long> finIds = new ArrayList<>();
         finIds = ids;
-//        System.out.println("ids: " + " " + ids);
-//        System.out.println("Stopped: " + " " + stoppedTransactionRef);
+        ids = removeDuplicates(ids);
+        finIds = removeDuplicates(finIds);
+       System.out.println("ids: " + " " + ids);
+        System.out.println("Stopped: " + " " + stoppedTransactionRef);
         for (int y = 0; y < stoppedTransactionRef.size(); y++) {
             for(int k = 0; k < ids.size(); k++) {
-                if (ids.get(k) == stoppedTransactionRef.get(y)) {
-                    finIds.remove(k);
+                if (ids.get(k) == stoppedTransactionRef.get(y).longValue()) {
+                    for(int g=0; g< finIds.size(); g++) {
+                        if (finIds.get(g) == ids.get(k)) {
+                            finIds.remove(g);
+                        }
+                    }
                 }
             }
         }
-        finIds = removeDuplicates(finIds);
-//        System.out.println("FinIds: " + " " + finIds);
+        
+       System.out.println("FinIds: " + " " + finIds);
 //        transactionUnstoppedId = ids.toArray(new Long[ids.size()]);
         return transactionRepository.findAllById(finIds);
     }

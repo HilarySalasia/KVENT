@@ -59,9 +59,11 @@ export class HeaderComponent implements OnInit {
               private mainService: MainService,
               private acs: AuthenticationContentService,
               private ssS: SitesessionServiceService,
-              private headerService: HeaderService) {
+              private headerService: HeaderService,
+              ) {
     setInterval(() => {
       this.dateNow = new Date();
+      
     }, 1);
   }
 
@@ -76,6 +78,7 @@ export class HeaderComponent implements OnInit {
     this.title = this.headerService.getTitle();
     this.getAudioDetails();
     this.headerService.setUserDetails(this.user);
+    console.log('the page just reloaded');
   }
 
   accessProcedure(procType: string) {

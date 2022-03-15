@@ -25,6 +25,8 @@ import {SetupService} from './kvent/main/services/setup.service';
 import {BusinessService} from './kvent/main/services/business.service';
 import {TransactionService} from './kvent/main/services/transaction.service';
 import {TransactService} from './kvent/main/services/transact.service';
+import { ErrorHandlingComponent } from './kvent/main/error-handling/error-handling.component';
+import { ErrorHandlingService } from './kvent/main/error-handling/error-handling.service';
 
 
 
@@ -38,6 +40,7 @@ import {TransactService} from './kvent/main/services/transact.service';
         ContentContentComponent,
         LoadingScreenComponent,
         HeaderComponent,
+        ErrorHandlingComponent,
 
     ],
   imports: [
@@ -50,7 +53,7 @@ import {TransactService} from './kvent/main/services/transact.service';
     SharedModule
   ],
     providers: [LoadingScreenService, SitesessionServiceService, GoogleService, HeaderService,
-      MainService, SetupService, BusinessService, TransactionService, TransactService,
+      MainService, SetupService, BusinessService, TransactionService, TransactService, ErrorHandlingService,
         {provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true}
     ],
   exports: [],

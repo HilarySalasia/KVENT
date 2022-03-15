@@ -55,6 +55,6 @@ export class HeaderService {
   }
 
   public getAudioDetails(): Observable<AudioDets> {
-    return of(this.audioDetails).pipe(share());
+    return of(this.audioDetails);
   }
 }

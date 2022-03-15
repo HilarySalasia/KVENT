@@ -10,6 +10,8 @@ import {DomSanitizer} from '@angular/platform-browser';
 import {HeaderService} from '../../header/header.service';
 import {TransactService} from '../../services/transact.service';
 import {AudioDets} from '../../models/audioDets';
+import { ErrorHandlingService } from '../../error-handling/error-handling.service';
+import { Error } from '../../models/error';
 
 
 @Component({
@@ -26,21 +28,24 @@ musicHardLink;
 stopAudio: boolean;
 n  = 0;
 onPlayer: boolean;
-playFile: boolean = false;
+playFile = false;
 response: string;
 public faPlayCircle = faPlayCircle;
 public faDownload = faDownload;
   mixPlayId: number;
   Lmix: Mixes;
-  disbPlay: boolean = false;
+  disbPlay = false;
   audioDetails: AudioDets = <AudioDets>{};
   audioCurrTime;
+  dataOn: AudioDets = <AudioDets> {};
+  _error: Error = <Error> {};
 
   constructor(private mainService: MainService,
               private _cdr: ChangeDetectorRef,
               private sanitzer: DomSanitizer,
               private headerService: HeaderService,
-              private trasactService: TransactService) {
+              private trasactService: TransactService,
+              private errorHandlingService: ErrorHandlingService) {
   }
 
   ngOnInit() {
@@ -60,7 +65,16 @@ public faDownload = faDownload;
         this.headerService.setTitle('Music Section');
         // console.log('Miix: ', mix, 'Link: ', this.qMixes[0].picture.picLink);
         this.onLoad();
-    });
+    },
+    (error) => {
+      this._error.message = error.statusText;
+      this._error.title = 'No data!';
+      this._error.type = 'Error';
+      this._error.status = true;
+      this.errorHandlingService.errors.push(this._error);
+      console.log('Error: ', error);
+    }
+    );
   }
   onLoad() {
     // check for music Played and not stopped
@@ -97,6 +111,7 @@ public faDownload = faDownload;
   checkAudioTime(value: number) {
     this.audioCurrTime = value;
   }
+
   ngOnDestroy() {
     if (this.disbPlay) {
       // this.audioDetails.audioPermit = this.playFile;
