@@ -1,8 +1,11 @@
 package com.mixapp.venitar.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name ="vent_currency")
 public class Currency {
     @Id
@@ -16,27 +19,5 @@ public class Currency {
     @Column(name ="curr_sht_desc")
     private String currencyShtDesc;
 
-    public Long getCurrencyId() {
-        return currencyId;
-    }
 
-    public void setCurrencyId(Long currencyId) {
-        this.currencyId = currencyId;
-    }
-
-    public String getCurrencyDesc() {
-        return currencyDesc;
-    }
-
-    public void setCurrencyDesc(String currencyDesc) {
-        this.currencyDesc = currencyDesc;
-    }
-
-    public String getCurrencyShtDesc() {
-        return currencyShtDesc;
-    }
-
-    public void setCurrencyShtDesc(String currencyShtDesc) {
-        this.currencyShtDesc = currencyShtDesc;
-    }
 }

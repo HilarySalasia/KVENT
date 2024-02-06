@@ -1,8 +1,11 @@
 package com.mixapp.venitar.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name = "vent_transc_type")
 public class TransactionType {
     @Id
@@ -13,19 +16,5 @@ public class TransactionType {
     @Column(name="v_tt_name")
     private String transcName;
 
-    public Long getTranscType() {
-        return transcType;
-    }
 
-    public void setTranscType(Long transcType) {
-        this.transcType = transcType;
-    }
-
-    public String getTranscName() {
-        return transcName;
-    }
-
-    public void setTranscName(String transcName) {
-        this.transcName = transcName;
-    }
 }

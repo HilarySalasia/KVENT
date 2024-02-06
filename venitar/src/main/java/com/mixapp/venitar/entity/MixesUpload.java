@@ -2,10 +2,12 @@ package com.mixapp.venitar.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name="mixes_upload")
 public class MixesUpload {
     @Id
@@ -37,67 +39,5 @@ public class MixesUpload {
     private Long userId;
 
     //Getter and Setters
-    public Long getMixId() {
-        return mixId;
-    }
 
-    public void setMixId(Long mixId) {
-        this.mixId = mixId;
-    }
-
-    public String getMixDjName() {
-        return mixDjName;
-    }
-
-    public void setMixDjName(String mixDjName) {
-        this.mixDjName = mixDjName;
-    }
-
-    public String getMixLink() {
-        return mixLink;
-    }
-
-    public void setMixLink(String mixLink) {
-        this.mixLink = mixLink;
-    }
-
-    public String getMixStatus() {
-        return mixStatus;
-    }
-
-    public void setMixStatus(String mixStatus) {
-        this.mixStatus = mixStatus;
-    }
-
-    public String getMixTitle() {
-        return mixTitle;
-    }
-
-    public void setMixTitle(String mixTitle) {
-        this.mixTitle = mixTitle;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public Picture getPicture() {
-        return picture;
-    }
-
-    public void setPicture(Picture picture) {
-        this.picture = picture;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 }

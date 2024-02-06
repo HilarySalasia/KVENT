@@ -3,12 +3,14 @@ package com.mixapp.venitar.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Data
 @Table(name="vent_login")
 public class Login {
     @Id
@@ -51,84 +53,6 @@ public class Login {
     @Column(name="lgn_logout", length = 10)
     private String loginLoggedOut;
 
-    public Long getLoginId() {
-        return loginId;
-    }
 
-    public void setLoginId(Long loginId) {
-        this.loginId = loginId;
-    }
-
-    public String getLoginToken() {
-        return loginToken;
-    }
-
-    public void setLoginToken(String loginToken) {
-        this.loginToken = loginToken;
-    }
-
-    public String getLoginCookie() {
-        return loginCookie;
-    }
-
-    public void setLoginCookie(String loginCookie) {
-        this.loginCookie = loginCookie;
-    }
-
-    public Date getLoginDate() {
-        return loginDate;
-    }
-
-    public void setLoginDate(Date loginDate) {
-        this.loginDate = loginDate;
-    }
-
-    public Date getLoginOutDate() {
-        return loginOutDate;
-    }
-
-    public void setLoginOutDate(Date loginOutDate) {
-        this.loginOutDate = loginOutDate;
-    }
-
-    public String getLoginOS() {
-        return loginOS;
-    }
-
-    public void setLoginOS(String loginOS) {
-        this.loginOS = loginOS;
-    }
-
-    public String getLoginAddress() {
-        return loginAddress;
-    }
-
-    public void setLoginAddress(String loginAddress) {
-        this.loginAddress = loginAddress;
-    }
-
-    public Long getLoginUser() {
-        return userId;
-    }
-
-    public void setLoginUser(Long loginUser) {
-        this.userId = loginUser;
-    }
-
-    public String getLoginExpire() {
-        return loginExpire;
-    }
-
-    public void setLoginExpire(String loginExpire) {
-        this.loginExpire = loginExpire;
-    }
-
-    public String getLoginLoggedOut() {
-        return loginLoggedOut;
-    }
-
-    public void setLoginLoggedOut(String loginLoggedOut) {
-        this.loginLoggedOut = loginLoggedOut;
-    }
 
 }

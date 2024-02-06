@@ -1,12 +1,14 @@
 package com.mixapp.venitar.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Data
 @Table(name="venitar_transc")
 public class Transaction {
     @Id
@@ -37,67 +39,5 @@ public class Transaction {
     @Column(name="ref_tranc")
     private Long transcRef;
 
-    public Long getTranscId() {
-        return transcId;
-    }
 
-    public void setTranscId(Long transcId) {
-        this.transcId = transcId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getEventId() {
-        return eventId;
-    }
-
-    public void setEventId(Long eventId) {
-        this.eventId = eventId;
-    }
-
-    public Long getAudioId() {
-        return audioId;
-    }
-
-    public void setAudioId(Long audioId) {
-        this.audioId = audioId;
-    }
-
-    public Date getTranscDate() {
-        return transcDate;
-    }
-
-    public void setTranscDate(Date transcDate) {
-        this.transcDate = transcDate;
-    }
-
-    public Long getTranscType() {
-        return transcType;
-    }
-
-    public void setTranscType(Long transcType) {
-        this.transcType = transcType;
-    }
-
-    public Long getTranscTypeValue() {
-        return transcTypeValue;
-    }
-
-    public void setTranscTypeValue(Long transcTypeValue) {
-        this.transcTypeValue = transcTypeValue;
-    }
-
-    public Long getTranscRef() {
-        return transcRef;
-    }
-
-    public void setTranscRef(Long transcRef) {
-        this.transcRef = transcRef;
-    }
 }

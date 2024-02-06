@@ -1,8 +1,11 @@
 package com.mixapp.venitar.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name="vent_town")
 public class Town {
     public Long getTownId() {
@@ -17,14 +20,6 @@ public class Town {
     @GeneratedValue(strategy= GenerationType.AUTO)
     @Column(name="town_id")
     private Long townId;
-
-    public String getTownName() {
-        return townName;
-    }
-
-    public void setTownName(String townName) {
-        this.townName = townName;
-    }
 
     @Column(name="town", length=15, nullable=false, unique=false)
     private String townName;

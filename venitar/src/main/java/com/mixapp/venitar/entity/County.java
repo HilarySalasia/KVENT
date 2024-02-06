@@ -1,8 +1,11 @@
 package com.mixapp.venitar.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name="vent_county")
 public class County {
     @Id
@@ -13,19 +16,5 @@ public class County {
     @Column(name="county", length=15, nullable=false, unique=false)
     private String countyName;
 
-    public Long getCountyId() {
-        return countyId;
-    }
 
-    public void setCountyId(Long countyId) {
-        this.countyId = countyId;
-    }
-
-    public String getCountyName() {
-        return countyName;
-    }
-
-    public void setCountyName(String countyName) {
-        this.countyName = countyName;
-    }
 }

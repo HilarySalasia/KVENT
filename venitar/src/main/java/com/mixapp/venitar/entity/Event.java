@@ -1,12 +1,14 @@
 package com.mixapp.venitar.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Data
 @Table(name = "vent_event")
 public class Event {
     @Id
@@ -53,99 +55,5 @@ public class Event {
     @Column(name = "evnt_user_id")
     private Long userId;
 
-    public Long getEventId() {
-        return eventId;
-    }
 
-    public void setEventId(Long eventId) {
-        this.eventId = eventId;
-    }
-
-    public String getEventTitle() {
-        return eventTitle;
-    }
-
-    public void setEventTitle(String eventTitle) {
-        this.eventTitle = eventTitle;
-    }
-
-    public String getEventLocation() {
-        return eventLocation;
-    }
-
-    public void setEventLocation(String eventLocation) {
-        this.eventLocation = eventLocation;
-    }
-
-    public String getEventLocLongitude() {
-        return eventLocLongitude;
-    }
-
-    public void setEventLocLongitude(String eventLocLongitude) {
-        this.eventLocLongitude = eventLocLongitude;
-    }
-
-    public String getEventLocLatitude() {
-        return eventLocLatitude;
-    }
-
-    public void setEventLocLatitude(String eventLocLatitude) {
-        this.eventLocLatitude = eventLocLatitude;
-    }
-
-    public String getEventCapacity() {
-        return eventCapacity;
-    }
-
-    public void setEventCapacity(String eventCapacity) {
-        this.eventCapacity = eventCapacity;
-    }
-
-    public String getEventCost() {
-        return eventCost;
-    }
-
-    public void setEventCost(String eventCost) {
-        this.eventCost = eventCost;
-    }
-
-    public Date getEventStartDate() {
-        return eventStartDate;
-    }
-
-    public void setEventStartDate(Date eventStartDate) {
-        this.eventStartDate = eventStartDate;
-    }
-
-    public Date getEventEndDate() {
-        return eventEndDate;
-    }
-
-    public void setEventEndDate(Date eventEndDate) {
-        this.eventEndDate = eventEndDate;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
-    public Currency getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 }

@@ -3,6 +3,7 @@ package com.mixapp.venitar.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.time.LocalDate;
 
 @Entity
+@Data
 @Table(name="vent_cred")
 public class Credentials {
     @Id
@@ -27,29 +29,6 @@ public class Credentials {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date createdDate;
 
-    public Long getCredId() {
-        return credId;
-    }
-
-    public void setCredId(Long credId) {
-        this.credId = credId;
-    }
-
-    public String getPassCode() {
-        return passCode;
-    }
-
-    public void setPassCode(String passCode) {
-        this.passCode = passCode;
-    }
-
-    public Date getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
 
 
 
