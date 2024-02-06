@@ -3,8 +3,7 @@ package com.mixapp.venitar.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -12,7 +11,8 @@ import java.util.Date;
 @Table(name="venitar_transc")
 public class Transaction {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "venitar-transc-seq")
+    @SequenceGenerator(name = "venitar-transc-seq", sequenceName = "venitar_transc_seq", allocationSize = 1)
     @Column(name="v_transc")
     private Long transcId;
 

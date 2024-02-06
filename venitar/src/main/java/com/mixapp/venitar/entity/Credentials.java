@@ -1,22 +1,18 @@
 package com.mixapp.venitar.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
-import java.time.LocalDateTime;
+import jakarta.persistence.*;
 import java.util.Date;
-import java.time.LocalDate;
 
 @Entity
 @Data
 @Table(name="vent_cred")
 public class Credentials {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vent-credentials-seq")
+    @SequenceGenerator(name="vent-credentials-seq", sequenceName = "vent_cred_seq", allocationSize = 1)
     @Column(name="cred_id")
     private Long credId;
 

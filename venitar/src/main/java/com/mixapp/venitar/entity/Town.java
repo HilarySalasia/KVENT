@@ -1,23 +1,16 @@
 package com.mixapp.venitar.entity;
 
 import lombok.Data;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Data
 @Table(name="vent_town")
 public class Town {
-    public Long getTownId() {
-        return townId;
-    }
-
-    public void setTownId(Long townId) {
-        this.townId = townId;
-    }
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "vent-town-seq")
+    @SequenceGenerator(name = "vent-town-seq", sequenceName = "vent_town_seq", allocationSize = 1)
     @Column(name="town_id")
     private Long townId;
 

@@ -1,15 +1,11 @@
 package com.mixapp.venitar.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Entity
@@ -17,7 +13,8 @@ import java.util.Date;
 @Table(name="vent_user")
 public class Users implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="vent-user-seq" )
+    @SequenceGenerator(name ="vent-user-seq", sequenceName = "vent_user_seq", allocationSize = 1)
     @Column(name= "code")
     private Long userCode;
 

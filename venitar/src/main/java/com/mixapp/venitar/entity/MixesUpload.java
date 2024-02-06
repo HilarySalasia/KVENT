@@ -1,17 +1,15 @@
 package com.mixapp.venitar.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 import lombok.Data;
-
-import javax.persistence.*;
 
 @Entity
 @Data
 @Table(name="mixes_upload")
 public class MixesUpload {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "mixes-upload-seq")
+    @SequenceGenerator(name = "mixes-upload-seq", sequenceName = "mixes_upload_seq", allocationSize = 1)
     @Column(name="mix_id")
     private Long mixId;
 

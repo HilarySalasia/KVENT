@@ -1,14 +1,15 @@
 package com.mixapp.venitar.entity;
 
 import lombok.Data;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Data
 @Table(name = "vent_market")
 public class Market {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "vent-market-seq")
+    @SequenceGenerator(name = "vent-market-seq", sequenceName = "vent_market_seq", allocationSize = 1)
     @Column(name ="markp_id")
     private Long marketId;
 

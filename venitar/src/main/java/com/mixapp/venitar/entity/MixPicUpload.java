@@ -1,15 +1,15 @@
 package com.mixapp.venitar.entity;
 
 import lombok.Data;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Data
 @Table(name="picture_upload")
 public class MixPicUpload {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.SEQUENCE, generator = "picture-upload-seq")
+    @SequenceGenerator(name = "picture-upload-seq", sequenceName = "picture_upload_seq",allocationSize = 1)
     @Column(name="mix_pic_id")
     private Long mixPicId;
 

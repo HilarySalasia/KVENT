@@ -9,17 +9,11 @@ import com.mixapp.venitar.models.FileUpload;
 import com.mixapp.venitar.service.LoginService;
 import com.mixapp.venitar.service.MixesUploadService;
 import com.mixapp.venitar.service.UsersService;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.lang.Nullable;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.servlet.annotation.MultipartConfig;
-import java.awt.*;
 import java.io.IOException;
 import java.util.List;
 
